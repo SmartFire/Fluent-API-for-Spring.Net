@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B303FD06-98BB-4C03-BCD5-EA557645F16A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FluentSpring</RootNamespace>
+    <AssemblyName>FluentSpring</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\Libraries\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\Libraries\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Data">
+      <HintPath>..\Libraries\Spring.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web">
+      <HintPath>..\Libraries\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context\Configuration\Binders\ListBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\NameValueCollectionBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\NameValueKeyBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\NameValueValueBinder.cs" />
+    <Compile Include="Context\Configuration\ICanAddNameValueEntry.cs" />
+    <Compile Include="Context\Configuration\ICanBindNameValueKey.cs" />
+    <Compile Include="Context\Configuration\ICanBindNameValueValue.cs" />
+    <Compile Include="Context\Parsers\NameValueCollectionParser.cs" />
+    <Compile Include="Context\Configuration\ICanAutoWireObject.cs" />
+    <Compile Include="Context\Configuration\ICanBindClass.cs" />
+    <Compile Include="Context\Configuration\ICanCheckDependency.cs" />
+    <Compile Include="Context\Configuration\ICanDependOn.cs" />
+    <Compile Include="Context\Configuration\ICanDestroy.cs" />
+    <Compile Include="Context\Configuration\ICanAddListEntry.cs" />
+    <Compile Include="Context\Parsers\ConstraintDefinitionParser.cs" />
+    <Compile Include="Context\Configuration\Constraints\ConstrainableRuntimeFactoryObject.cs" />
+    <Compile Include="Context\Configuration\ICanUseFactory.cs" />
+    <Compile Include="Context\Configuration\ICanBindInterface.cs" />
+    <Compile Include="Context\Configuration\ICanSetAConstraint.cs" />
+    <Compile Include="Context\Configuration\ICanConstruct.cs" />
+    <Compile Include="Context\Configuration\ICanBindDictionaryValue.cs" />
+    <Compile Include="Context\Configuration\ICanConfigureInlineObject.cs" />
+    <Compile Include="Context\Configuration\ICanReturnConfigurationParser.cs" />
+    <Compile Include="Context\Configuration\ICanBindProperty.cs" />
+    <Compile Include="Context\Configuration\ICanBindObjectMember.cs" />
+    <Compile Include="Context\Configuration\IRegistrableObject.cs" />
+    <Compile Include="Context\Configuration\ICanScope.cs" />
+    <Compile Include="Context\Configuration\ICanContainConfiguration.cs" />
+    <Compile Include="Context\Configuration\ICanConfigureObject.cs" />
+    <Compile Include="Context\Configuration\ICanBindConstructorArgument.cs" />
+    <Compile Include="Context\Configuration\ICanBindPropertyValue.cs" />
+    <Compile Include="Context\Configuration\Binders\ConditionalBinder.cs" />
+    <Compile Include="Context\Extensions\ApplicationContextExtensions.cs" />
+    <Compile Include="Context\Configuration\Constraints\ConditionalObjectDefinition.cs" />
+    <Compile Include="Context\Parsers\IDictionaryConfigurationParser.cs" />
+    <Compile Include="Context\Parsers\DictionaryConfigurationParser.cs" />
+    <Compile Include="Context\Configuration\Binders\DictionaryKeyBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\DictionaryEntryBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\DictionaryValueBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\ConstructorArgumentBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\PropertyValueBinder.cs" />
+    <Compile Include="Context\Configuration\Constraints\Is.cs" />
+    <Compile Include="Context\Inline.cs" />
+    <Compile Include="Context\Configuration\ICanBindDictionaryKey.cs" />
+    <Compile Include="Context\Configuration\ICanAddDictionaryEntry.cs" />
+    <Compile Include="Context\Parsers\ConditionalBindingDefinitionParser.cs" />
+    <Compile Include="Context\Parsers\ListDefinitionParser.cs" />
+    <Compile Include="Context\Resources\ResourceParser.cs" />
+    <Compile Include="Context\Resources\ExtendedAssemblyResource.cs" />
+    <Compile Include="Context\Support\FluentGenericApplicationContext.cs" />
+    <Compile Include="Context\Support\FluentGenericApplicationContextHandler.cs" />
+    <Compile Include="Context\Support\FluentStaticConfiguration.cs" />
+    <Compile Include="Context\Support\FluentWebApplicationContext.cs" />
+    <Compile Include="Context\Support\FluentWebApplicationContextHandler.cs" />
+    <Compile Include="Context\Configuration\Constraints\ConstrainableDuringLoadFactoryObject.cs" />
+    <Compile Include="Context\Objects\Factory\Support\FluentObjectDefinitionLoader.cs" />
+    <Compile Include="Context\Objects\Factory\IFluentObjectDefinitionRegistry.cs" />
+    <Compile Include="Context\Parsers\IObjectDefinitionParser.cs" />
+    <Compile Include="Context\Objects\Factory\IObjectDefinitionService.cs" />
+    <Compile Include="Context\Objects\Factory\Support\ObjectDefinitionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Context\FluentApplicationContext.cs" />
+    <Compile Include="Context\Configuration\Binders\ObjectBinder.cs" />
+    <Compile Include="Context\Parsers\ObjectDefinitionParser.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
