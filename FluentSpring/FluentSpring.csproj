@@ -33,17 +33,21 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging">
-      <HintPath>..\Libraries\Common.Logging.dll</HintPath>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Spring.Net 1.3.1\net\2.0\release\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Spring.Core">
-      <HintPath>..\Libraries\Spring.Core.dll</HintPath>
+    <Reference Include="Spring.Aop, Version=1.3.0.20349, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Spring.Net 1.3.1\net\2.0\release\Spring.Aop.dll</HintPath>
     </Reference>
-    <Reference Include="Spring.Data">
-      <HintPath>..\Libraries\Spring.Data.dll</HintPath>
+    <Reference Include="Spring.Core, Version=1.3.0.20349, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Spring.Net 1.3.1\net\2.0\release\Spring.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Spring.Web">
-      <HintPath>..\Libraries\Spring.Web.dll</HintPath>
+    <Reference Include="Spring.Web, Version=1.3.0.20349, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Spring.Net 1.3.1\net\2.0\release\Spring.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
