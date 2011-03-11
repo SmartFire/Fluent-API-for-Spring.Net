@@ -62,15 +62,14 @@ namespace Spring.IocQuickStart.MovieFinder
         {
             try
             {
-                IApplicationContext ctx = CreateContextFluently();
+                var ctx = CreateContextFluently();
 
                 #region Five alternatives to create an applicationcontext.
-                //CreateDefaultContext();
-                //CreateContextFluently()
-                //CreateContextMixXmlAndProgrammatic();               
-                //CreateContextProgrammatically();                    
-                //CreateContextProgrammaticallyWithAutoWire();     
-
+                //var ctx = CreateDefaultContext();
+                //var ctx = CreateContextFluently()
+                //var ctx = CreateContextMixXmlAndProgrammatic();               
+                //var ctx = CreateContextProgrammatically();                    
+                //var ctx = CreateContextProgrammaticallyWithAutoWire();     
                 #endregion
 
                 var lister = (MovieLister) ctx.GetObject("MyMovieLister");
