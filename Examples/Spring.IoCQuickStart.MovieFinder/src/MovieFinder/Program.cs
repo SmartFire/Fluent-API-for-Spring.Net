@@ -22,8 +22,11 @@
 
 using System;
 using System.Collections.Specialized;
+using System.IO;
 using Common.Logging;
 using Common.Logging.Log4Net;
+using FluentSpring.Context;
+using FluentSpring.Context.Support;
 using Spring.Context;
 using Spring.Context.Support;
 using Spring.Objects.Factory.Config;
@@ -34,107 +37,134 @@ using Spring.Objects.Factory.Xml;
 
 namespace Spring.IocQuickStart.MovieFinder
 {
-	/// <summary>
-	/// A simple application that demonstrates the IoC functionality of Spring.NET.
-	/// </summary>
-	/// <remarks>
-	/// <p>
-	/// See <a href="http://martinfowler.com/articles/injection.html"/> for the background
-	/// article on which this example application is based.
-	/// </p>
-	/// </remarks>
-	public sealed class Program
-	{
-	    #region Logging Definition
+    /// <summary>
+    /// A simple application that demonstrates the IoC functionality of Spring.NET.
+    /// </summary>
+    /// <remarks>
+    /// <p>
+    /// See <a href="http://martinfowler.com/articles/injection.html"/> for the background
+    /// article on which this example application is based.
+    /// </p>
+    /// </remarks>
+    public sealed class Program
+    {
+        #region Logging Definition
 
-	    private static readonly ILog LOG = LogManager.GetLogger(typeof(Program));
+        private static readonly ILog LOG = LogManager.GetLogger(typeof (Program));
 
-	    #endregion
+        #endregion
 
-	    /// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		public static void Main()
-		{
-			try
-			{
-                IApplicationContext ctx = ContextRegistry.GetContext();
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        public static void Main()
+        {
+            try
+            {
+                IApplicationContext ctx = CreateContextFluently();
 
-                #region Advanced: Call alternative ways to create application context
+                #region Five alternatives to create an applicationcontext.
+                //CreateDefaultContext();
+                //CreateContextFluently()
                 //CreateContextMixXmlAndProgrammatic();               
                 //CreateContextProgrammatically();                    
                 //CreateContextProgrammaticallyWithAutoWire();     
+
                 #endregion
 
-                MovieLister lister = (MovieLister) ctx.GetObject("MyMovieLister");
-				Movie[] movies = lister.MoviesDirectedBy("Roberto Benigni");
-				LOG.Debug("Searching for movie...");
-				foreach (Movie movie in movies)
-				{
+                var lister = (MovieLister) ctx.GetObject("MyMovieLister");
+                Movie[] movies = lister.MoviesDirectedBy("Roberto Benigni");
+                LOG.Debug("Searching for movie...");
+                foreach (Movie movie in movies)
+                {
                     LOG.Debug(
-						string.Format("Movie Title = '{0}', Director = '{1}'.",
-						              movie.Title, movie.Director));
-				}
+                        string.Format("Movie Title = '{0}', Director = '{1}'.",
+                                      movie.Title, movie.Director));
+                }
                 LOG.Debug("MovieApp Done.");
-			}
-			catch (Exception e)
-			{
-				LOG.Error("Movie Finder is broken.", e);
-			}
-			finally
-			{
+            }
+            catch (Exception e)
+            {
+                LOG.Error("Movie Finder is broken.", e);
+            }
+            finally
+            {
                 Console.WriteLine();
-				Console.WriteLine("--- hit <return> to quit ---");
-				Console.ReadLine();
-			}
-		}
+                Console.WriteLine("--- hit <return> to quit ---");
+                Console.ReadLine();
+            }
+        }
 
+        private static IApplicationContext CreateDefaultContext()
+        {
+            // if no context was registered before, 
+            // then a call to GetContext() creates a new context from app.config:
+            return ContextRegistry.GetContext();
+        }
 
         #region Implementation of alternative ways to create application context
 
+        private static IApplicationContext CreateContextFluently()
+        {
+            var ctx = new FluentGenericApplicationContext();
+
+            FluentApplicationContext.Clear();
+
+            FluentApplicationContext.Register<ColonDelimitedMovieFinder>("ColonDelimitedMovieFinder")
+                .BindConstructorArgument<FileInfo>().To(new FileInfo("movies.txt"));
+
+            FluentApplicationContext.Register<MovieLister>("MyMovieLister")
+                .Bind(x => x.MovieFinder).To<IMovieFinder>("ColonDelimitedMovieFinder");
+
+            FluentStaticConfiguration.ObjectDefinitionLoader.LoadObjectDefinitions(ctx.ObjectFactory);
+
+            return ctx;
+        }
+
         private static IApplicationContext CreateContextProgrammatically()
-	    {
-            InitializeCommonLogging();
-	        GenericApplicationContext ctx = new GenericApplicationContext();
-            
-            IObjectDefinitionFactory objectDefinitionFactory = new DefaultObjectDefinitionFactory();
-            
-            
-            //Create MovieLister and dependency on 
-            ObjectDefinitionBuilder builder = 
-                ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof(MovieLister));
-	        builder.AddPropertyReference("MovieFinder", "AnotherMovieFinder");   
-
-	        ctx.RegisterObjectDefinition("MyMovieLister", builder.ObjectDefinition);
-
-            builder = ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof(ColonDelimitedMovieFinder));
-	        builder.AddConstructorArg("movies.txt");
-	        ctx.RegisterObjectDefinition("AnotherMovieFinder", builder.ObjectDefinition);
-
-            ctx.Refresh();
-
-	        return ctx;
-
-	    }
-
-        private static IApplicationContext CreateContextProgrammaticallyWithAutoWire()
         {
             InitializeCommonLogging();
-            GenericApplicationContext ctx = new GenericApplicationContext();
-           
+            var ctx = new GenericApplicationContext();
+
             IObjectDefinitionFactory objectDefinitionFactory = new DefaultObjectDefinitionFactory();
 
 
             //Create MovieLister and dependency on 
             ObjectDefinitionBuilder builder =
-                ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof(MovieLister));
-            builder.AddPropertyReference("MovieFinder", "BogusNameOfDependency")                
+                ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof (MovieLister));
+            builder.AddPropertyReference("MovieFinder", "AnotherMovieFinder");
+
+            ctx.RegisterObjectDefinition("MyMovieLister", builder.ObjectDefinition);
+
+            builder = ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory,
+                                                                   typeof (ColonDelimitedMovieFinder));
+            builder.AddConstructorArg("movies.txt");
+            ctx.RegisterObjectDefinition("AnotherMovieFinder", builder.ObjectDefinition);
+
+            ctx.Refresh();
+
+            return ctx;
+        }
+
+        private static IApplicationContext CreateContextProgrammaticallyWithAutoWire()
+        {
+            InitializeCommonLogging();
+            var ctx = new GenericApplicationContext();
+
+            IObjectDefinitionFactory objectDefinitionFactory = new DefaultObjectDefinitionFactory();
+
+
+            //Create MovieLister and dependency on 
+            ObjectDefinitionBuilder builder =
+                ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof (MovieLister));
+            builder.AddPropertyReference("MovieFinder", "BogusNameOfDependency")
                 .SetAutowireMode(AutoWiringMode.ByType);
 
             ctx.RegisterObjectDefinition("MyMovieLister", builder.ObjectDefinition);
 
-            builder = ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof(ColonDelimitedMovieFinder));
+            builder = ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory,
+                                                                   typeof (ColonDelimitedMovieFinder));
             builder.AddConstructorArg("movies.txt")
                 .SetAutowireMode(AutoWiringMode.ByType);
 
@@ -143,37 +173,35 @@ namespace Spring.IocQuickStart.MovieFinder
             ctx.Refresh();
 
             return ctx;
-
         }
 
         private static IApplicationContext CreateContextMixXmlAndProgrammatic()
         {
-
-            GenericApplicationContext ctx = new GenericApplicationContext();
+            var ctx = new GenericApplicationContext();
 
             IObjectDefinitionReader objectDefinitionReader = new XmlObjectDefinitionReader(ctx);
-            objectDefinitionReader.LoadObjectDefinitions("assembly://Spring.IocQuickStart.MovieFinder/Spring.IocQuickStart.MovieFinder/AppContextContribution.xml");
+            objectDefinitionReader.LoadObjectDefinitions(
+                "assembly://Spring.IocQuickStart.MovieFinder/Spring.IocQuickStart.MovieFinder/AppContextContribution.xml");
 
             IObjectDefinitionFactory objectDefinitionFactory = new DefaultObjectDefinitionFactory();
-            ObjectDefinitionBuilder builder = 
-                ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof(ColonDelimitedMovieFinder));
+            ObjectDefinitionBuilder builder =
+                ObjectDefinitionBuilder.RootObjectDefinition(objectDefinitionFactory, typeof (ColonDelimitedMovieFinder));
             builder.AddConstructorArg("movies.txt");
             ctx.RegisterObjectDefinition("AnotherMovieFinder", builder.ObjectDefinition);
-            
+
 
             ctx.Refresh();
-            
+
             return ctx;
         }
 
         private static void InitializeCommonLogging()
         {
-            NameValueCollection properties = new NameValueCollection();
+            var properties = new NameValueCollection();
             properties["configType"] = "INLINE";
             LogManager.Adapter = new Log4NetLoggerFactoryAdapter(properties);
         }
+
         #endregion
-
-
-	}
+    }
 }
