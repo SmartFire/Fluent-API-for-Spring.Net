@@ -30,7 +30,7 @@ namespace FluentSpring.Tests.ConfigurationTests
 
             //FluentApplicationContext.RegisterAll(assemblyTypeFilterLookup.GetAllTypes);
 
-            FluentApplicationContext.In(()=>AppDomain.CurrentDomain.GetAssemblies())
+            //FluentApplicationContext.In(() => AppDomain.CurrentDomain.GetAssemblies());
         }
 
         //[Test]
