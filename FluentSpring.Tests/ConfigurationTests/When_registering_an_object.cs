@@ -100,6 +100,23 @@ namespace FluentSpring.Tests.ConfigurationTests
         }
 
         [Test]
+        public void Then_the_object_of_same_type_with_different_identifiers_must_not_be_the_same()
+        {
+            const string identifierA = "myobjectname";
+            const string identifierB = "mysecondobjectname";
+
+            FluentApplicationContext.Register(() => FluentApplicationContext.Register<ObjectWithProperties>(identifierA));
+            FluentApplicationContext.Register(() => FluentApplicationContext.Register<ObjectWithProperties>(identifierB));
+
+            IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
+
+            var objectA = applicationContext.GetObject<ObjectWithProperties>(identifierA);
+            var objectB = applicationContext.GetObject<ObjectWithProperties>(identifierB);
+
+            Assert.AreNotSame(objectA, objectB);
+        }
+
+        [Test]
         public void Then_the_object_of_same_type_with_different_identifiers_must_be_registered()
         {
             const string identifierA = "myobjectname";
