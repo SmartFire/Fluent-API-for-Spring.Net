@@ -130,6 +130,7 @@ namespace FluentSpring.Tests.ConfigurationTests
 
             FluentApplicationContext.Bind<IObjectWithPropertiesInterface>()
                 .To<ObjectWithProperties>().When(() => !ConditionalFlag);
+
             FluentApplicationContext.Bind<IObjectWithPropertiesInterface>()
                 .To<AnotherObjectWithSameInterface>().When(() => ConditionalFlag);
 

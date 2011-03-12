@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq.Expressions;
+using FluentSpring.Context.Configuration.Conventions;
 using FluentSpring.Context.Parsers;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
@@ -20,7 +21,12 @@ namespace FluentSpring.Context.Configuration.Binders
 
         public ICanBindPropertyValue<T, X> Bind<X>(Expression<Func<T, X>> property)
         {
-            return new PropertyValueBinder<T, X>(_configurationParser, property, this);
+            return new PropertyValueBinder<T, X>(_configurationParser, GetPropertyName(property), this);    
+        }
+
+        public ICanBindPropertyValue<T, X> Bind<X>(string propertyName)
+        {
+            return new PropertyValueBinder<T, X>(_configurationParser, propertyName, this);
         }
 
         public ICanBindConstructorArgument<T, X> BindConstructorArgument<X>()
@@ -152,10 +158,30 @@ namespace FluentSpring.Context.Configuration.Binders
 
         #endregion
 
-        private bool HasMethodGotParameters<X, V>(Expression<Func<X, V>> factoryMethod)
+        private static bool HasMethodGotParameters<X, V>(Expression<Func<X, V>> factoryMethod)
         {
             var methodExpression = (MethodCallExpression) factoryMethod.Body;
             return methodExpression.Arguments.Count > 0;
         }
+
+        private static string GetPropertyName<X>(Expression<Func<T, X>> property)
+        {
+            if (property.Body is MemberExpression)
+            {
+                var propertyExpression = (MemberExpression)property.Body;
+                return propertyExpression.Member.Name;
+            }
+            else
+            {
+                throw new Exception(string.Format("Unrecognisable method/property, use Bind<Type>(\"propertyname\") instead"));
+            }
+        }
+
+        public ICanConfigureObject<T> Apply(IConvention convention) 
+        {
+            _configurationParser.ApplyConvention(convention);
+            return this;
+        }
+
     }
 }

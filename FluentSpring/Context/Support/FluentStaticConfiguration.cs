@@ -9,9 +9,16 @@ namespace FluentSpring.Context.Support
 {
     public class FluentStaticConfiguration
     {
-        private static readonly FluentObjectDefinitionLoader _fluentObjectDefinitionLoader = new FluentObjectDefinitionLoader(new DefaultObjectDefinitionFactory());
+        private static readonly FluentObjectDefinitionLoader _fluentObjectDefinitionRegistry = new FluentObjectDefinitionLoader(new DefaultObjectDefinitionFactory());
+
         private static AutoWiringMode _wiringMode = AutoWiringMode.No;
         private static DependencyCheckingMode _dependencyCheckMode = DependencyCheckingMode.None;
+        
+
+        static FluentStaticConfiguration()
+        {
+            RegisterImplementedInterfaces = false;
+        }
 
         internal static AutoWiringMode DefaultWiringMode
         {
@@ -25,16 +32,31 @@ namespace FluentSpring.Context.Support
             set { _dependencyCheckMode = value; }
         }
 
+        internal static bool RegisterImplementedInterfaces { get; set; }
 
-        public static IFluentObjectDefinitionRegistry ObjectDefinitionLoader
+        public static IFluentObjectDefinitionRegistry ObjectDefinitionRegistry
         {
-            get { return _fluentObjectDefinitionLoader; }
+            get { return _fluentObjectDefinitionRegistry; }
         }
-
 
         public static void Clear()
         {
-            _fluentObjectDefinitionLoader.Clear();
+            _fluentObjectDefinitionRegistry.Clear();
+        }
+
+        internal static ICanContainConfiguration GetConfigurationParser<T>()
+        {
+            return _fluentObjectDefinitionRegistry.GetConfigurationParser(typeof(T).FullName);
+        }
+
+        internal static ICanContainConfiguration GetConfigurationParser(Type objectType)
+        {
+            return _fluentObjectDefinitionRegistry.GetConfigurationParser(objectType.FullName);
+        }
+
+        internal static ICanContainConfiguration GetConfigurationParser(string identifier)
+        {
+            return _fluentObjectDefinitionRegistry.GetConfigurationParser(identifier);
         }
 
         /// <summary>
@@ -43,7 +65,8 @@ namespace FluentSpring.Context.Support
         /// <param name="configurationParser">The configuration parser.</param>
         public static void RegisterObjectConfiguration(ICanContainConfiguration configurationParser)
         {
-            _fluentObjectDefinitionLoader.RegisterObjectConfiguration(configurationParser);
+            _fluentObjectDefinitionRegistry.RegisterObjectConfiguration(configurationParser);
         }
+
     }
 }

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Configuration.Binders;
+using FluentSpring.Context.Configuration.Conventions;
+using FluentSpring.Context.Configuration.Conventions.Filters;
 using FluentSpring.Context.Parsers;
 using FluentSpring.Context.Support;
 using Spring.Objects.Factory.Config;
@@ -16,11 +20,6 @@ namespace FluentSpring.Context
     /// </summary>
     public static class FluentApplicationContext
     {
-        //public static Inline Inline
-        //{
-        //    get { return Inline.Instance; }
-        //}
-
         public static void Clear()
         {
             FluentStaticConfiguration.Clear();
@@ -35,16 +34,63 @@ namespace FluentSpring.Context
 
         public static ICanConfigureObject<T> Register<T>() where T : class
         {
-            ICanConfigureObject<T> canBind = Inline.Object<T>();
-            FluentStaticConfiguration.RegisterObjectConfiguration(canBind.GetConfigurationParser());
-            return canBind;
+            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser<T>();
+            if (configurationParser == null)
+            {
+                configurationParser = new ObjectDefinitionParser(typeof(T));
+            }
+
+            var objectBinder = new ObjectBinder<T>((ObjectDefinitionParser)configurationParser);
+
+            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
+            return objectBinder;
         }
 
         public static ICanConfigureObject<T> Register<T>(string identifierName) where T : class
         {
-            ICanConfigureObject<T> canBind = Inline.Object<T>(identifierName);
-            FluentStaticConfiguration.RegisterObjectConfiguration(canBind.GetConfigurationParser());
-            return canBind;
+            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser(identifierName);
+            if (configurationParser == null)
+            {
+                configurationParser = new ObjectDefinitionParser(typeof(T), identifierName);
+            }
+
+            var objectBinder = new ObjectBinder<T>((ObjectDefinitionParser)configurationParser);
+
+            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
+            return objectBinder;
+        }
+
+        public static ICanConfigureObject<T> For<T>(Type objectType)
+        {
+            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser(objectType);
+            if (configurationParser == null)
+            {
+                configurationParser = new ObjectDefinitionParser(objectType);
+            }
+
+            var objectBinder = new ObjectBinder<T>((ObjectDefinitionParser)configurationParser);
+
+            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
+            return objectBinder;
+        }
+
+        public static ICanConfigureObject<T> For<T>(Type objectType, string identifierName)
+        {
+            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser(identifierName);
+            if (configurationParser == null)
+            {
+                configurationParser = new ObjectDefinitionParser(objectType, identifierName);
+            }
+
+            var objectBinder = new ObjectBinder<T>((ObjectDefinitionParser)configurationParser);
+
+            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
+            return objectBinder;
+        }
+
+        public static ICanFilterType In(Func<Assembly, bool> assemblyCondition)
+        {
+            return null;
         }
 
         public static ICanConfigureObject<T> Register<T>(Func<ICanConfigureObject<T>> objectConfigurer) where T : class

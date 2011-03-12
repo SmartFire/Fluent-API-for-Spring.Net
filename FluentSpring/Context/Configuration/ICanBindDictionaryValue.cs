@@ -7,4 +7,5 @@
         ICanAddDictionaryEntry<T, X> AndValue(X actualValue);
         ICanAddDictionaryEntry<T, X> AndValueDefinition(ICanReturnConfigurationParser<X> inlineDefinition);
     }
+
 }

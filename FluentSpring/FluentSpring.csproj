@@ -32,6 +32,28 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
       <HintPath>..\Libraries\Common.Logging.dll</HintPath>
@@ -59,9 +81,20 @@
     <Compile Include="Context\Configuration\Binders\NameValueCollectionBinder.cs" />
     <Compile Include="Context\Configuration\Binders\NameValueKeyBinder.cs" />
     <Compile Include="Context\Configuration\Binders\NameValueValueBinder.cs" />
+    <Compile Include="Context\Configuration\Conventions\ICanBindPropertyOfType.cs" />
+    <Compile Include="Context\Configuration\Conventions\Support\PropertyBindingConvention.cs" />
+    <Compile Include="Context\Configuration\ICanApplyConvention.cs" />
+    <Compile Include="Context\Configuration\Conventions\ICanApplyConventionToTypes.cs" />
+    <Compile Include="Context\Configuration\Conventions\Filters\ICanFilterType.cs" />
+    <Compile Include="Context\Configuration\Conventions\IConvention.cs" />
+    <Compile Include="Context\Configuration\Conventions\Filters\ICanFilterAssembly.cs" />
+    <Compile Include="Context\Configuration\Conventions\Support\TypeFilterConvention.cs" />
+    <Compile Include="Context\Configuration\Conventions\Support\TypeNameConvention.cs" />
     <Compile Include="Context\Configuration\ICanAddNameValueEntry.cs" />
+    <Compile Include="Context\Configuration\ICanBindAssemblyObject.cs" />
     <Compile Include="Context\Configuration\ICanBindNameValueKey.cs" />
     <Compile Include="Context\Configuration\ICanBindNameValueValue.cs" />
+    <Compile Include="Context\Extensions\TypeExtensions.cs" />
     <Compile Include="Context\Parsers\NameValueCollectionParser.cs" />
     <Compile Include="Context\Configuration\ICanAutoWireObject.cs" />
     <Compile Include="Context\Configuration\ICanBindClass.cs" />
@@ -92,7 +125,7 @@
     <Compile Include="Context\Parsers\IDictionaryConfigurationParser.cs" />
     <Compile Include="Context\Parsers\DictionaryConfigurationParser.cs" />
     <Compile Include="Context\Configuration\Binders\DictionaryKeyBinder.cs" />
-    <Compile Include="Context\Configuration\Binders\DictionaryEntryBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\GenericDictionaryEntryBinder.cs" />
     <Compile Include="Context\Configuration\Binders\DictionaryValueBinder.cs" />
     <Compile Include="Context\Configuration\Binders\ConstructorArgumentBinder.cs" />
     <Compile Include="Context\Configuration\Binders\PropertyValueBinder.cs" />

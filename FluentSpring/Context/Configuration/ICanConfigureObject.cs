@@ -1,4 +1,6 @@
-﻿namespace FluentSpring.Context.Configuration
+﻿using FluentSpring.Context.Configuration.Conventions;
+
+namespace FluentSpring.Context.Configuration
 {
     public interface ICanConfigureObject<T> : ICanBindProperty<T>,
                                               ICanConstruct<T>,
@@ -8,7 +10,8 @@
                                               ICanCheckDependency<ICanConfigureObject<T>>,
                                               ICanAutoWireObject<ICanConfigureObject<T>>,
                                               ICanDestroy<T>,
-                                              ICanDependOn<ICanConfigureObject<T>>
+                                              ICanDependOn<ICanConfigureObject<T>>,
+                                              ICanApplyConvention<T>
     {
         ICanConfigureObject<T> WithParentDefinition<X>();
         ICanConfigureObject<T> WithParentDefinition<X>(string identifier);

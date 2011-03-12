@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentSpring.Context.Configuration;
+using FluentSpring.Context.Configuration.Conventions;
+using FluentSpring.Context.Configuration.Conventions.Support;
 using FluentSpring.Context.Objects.Factory;
 using FluentSpring.Context.Support;
 using Spring.Objects;
@@ -13,8 +15,9 @@ namespace FluentSpring.Context.Parsers
     public class ObjectDefinitionParser : ICanContainConfiguration, IRegistrableObject, ICanConfigureInlineObject, IObjectDefinitionParser
     {
         private readonly Type _domainObjectType;
-        private readonly string _identifier;
+        private string _identifier;
         private readonly IList<Action<IConfigurableObjectDefinition, IObjectDefinitionService>> _objectDefinitionActions = new List<Action<IConfigurableObjectDefinition, IObjectDefinitionService>>();
+        private readonly IList<IConvention> _conventions = new List<IConvention>();
         private readonly IList<string> _objectDependencies = new List<string>();
         private AutoWiringMode _autoWiringMode;
         private DependencyCheckingMode _dependencyCheckMode;
@@ -205,6 +208,22 @@ namespace FluentSpring.Context.Parsers
                 objectDefinition = objectDefinitionService.Factory.CreateObjectDefinition(DomainObjectType.AssemblyQualifiedName, _parentDefinition, AppDomain.CurrentDomain);
             }
 
+            foreach (var convention in _conventions)
+            {
+                if (convention is TypeNameConvention)
+                {
+                    if (Identifier.Equals(DomainObjectType.FullName))
+                    {
+                        _identifier = ((TypeNameConvention) convention).GetIdentifierForType(DomainObjectType);
+                    }
+                }
+                else
+                {
+                    convention.ApplyConvention(objectDefinition);    
+                }
+                
+            }
+
             if (objectDefinition is RootWebObjectDefinition || objectDefinition is ChildWebObjectDefinition)
             {
                 ((IWebObjectDefinition) objectDefinition).Scope = _objectScope;
@@ -238,5 +257,11 @@ namespace FluentSpring.Context.Parsers
         {
             _objectScope = objectScope;
         }
+
+        public void ApplyConvention(IConvention convention)
+        {
+            _conventions.Add(convention);
+        }
+
     }
 }

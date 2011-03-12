@@ -10,7 +10,7 @@ namespace FluentSpring.Context.Support
     /// </summary>
     public class FluentWebApplicationContext : WebApplicationContext
     {
-        private readonly IFluentObjectDefinitionRegistry _objectDefinitionLoader = FluentStaticConfiguration.ObjectDefinitionLoader;
+        private readonly IFluentObjectDefinitionRegistry _objectDefinitionLoader = FluentStaticConfiguration.ObjectDefinitionRegistry;
 
         /// <summary>
         /// Create a new WebApplicationContext, loading the definitions

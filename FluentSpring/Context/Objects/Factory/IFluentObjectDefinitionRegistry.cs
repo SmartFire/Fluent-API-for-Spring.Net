@@ -7,5 +7,6 @@ namespace FluentSpring.Context.Objects.Factory
     {
         void LoadObjectDefinitions(IConfigurableListableObjectFactory listableObjectFactory);
         void RegisterObjectConfiguration(ICanContainConfiguration objectConfiguration);
+        
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using FluentSpring.Context.Configuration;
+﻿using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Configuration.Binders;
 using FluentSpring.Context.Parsers;
 
@@ -10,7 +9,7 @@ namespace FluentSpring.Context
         public static ICanAddDictionaryEntry<X, Y> Dictionary<X, Y>()
         {
             var configurationParser = new DictionaryConfigurationParser(typeof (X), typeof (Y));
-            return new DictionaryEntryBinder<X, Y>(configurationParser);
+            return new GenericDictionaryEntryBinder<X, Y>(configurationParser);
         }
 
         public static ICanConfigureObject<T> Object<T>() where T : class

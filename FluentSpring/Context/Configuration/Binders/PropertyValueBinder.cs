@@ -13,18 +13,18 @@ namespace FluentSpring.Context.Configuration.Binders
     {
         private readonly ICanConfigureObject<T> _canConfigureObjectConfiguration;
         private readonly ObjectDefinitionParser _configurationParser;
-        private readonly Expression<Func<T, X>> _property;
+        private readonly string _propertyName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyValueBinder{T,X}"/> class.
         /// </summary>
         /// <param name="configurationParser">The configuration container.</param>
-        /// <param name="property">The property we will inject to.</param>
+        /// <param name="propertyName">Name of the property.</param>
         /// <param name="canConfigureObjectConfiguration">The parent object configuration.</param>
-        public PropertyValueBinder(ObjectDefinitionParser configurationParser, Expression<Func<T, X>> property, ICanConfigureObject<T> canConfigureObjectConfiguration)
+        public PropertyValueBinder(ObjectDefinitionParser configurationParser, string propertyName, ICanConfigureObject<T> canConfigureObjectConfiguration)
         {
             _configurationParser = configurationParser;
-            _property = property;
+            _propertyName = propertyName;
             _canConfigureObjectConfiguration = canConfigureObjectConfiguration;
         }
 
@@ -32,34 +32,29 @@ namespace FluentSpring.Context.Configuration.Binders
 
         public ICanConfigureObject<T> To<V>() where V : X
         {
-            _configurationParser.SetPropertyReference(GetPropertyName(), typeof (V).FullName);
+            _configurationParser.SetPropertyReference(_propertyName, typeof (V).FullName);
             return _canConfigureObjectConfiguration;
         }
 
         public ICanConfigureObject<T> To<V>(string identifier) where V : X
         {
-            _configurationParser.SetPropertyReference(GetPropertyName(), identifier);
+            _configurationParser.SetPropertyReference(_propertyName, identifier);
             return _canConfigureObjectConfiguration;
         }
 
         public ICanConfigureObject<T> ToDefinition(ICanReturnConfigurationParser<X> inlineDefinition)
         {
-            _configurationParser.SetPropertyWithInlineDefinition(GetPropertyName(), inlineDefinition.GetConfigurationParser());
+            _configurationParser.SetPropertyWithInlineDefinition(_propertyName, inlineDefinition.GetConfigurationParser());
             return _canConfigureObjectConfiguration;
         }
 
         public ICanConfigureObject<T> To(X propertyValue)
         {
-            _configurationParser.SetPropertyValue(GetPropertyName(), propertyValue);
+            _configurationParser.SetPropertyValue(_propertyName, propertyValue);
             return _canConfigureObjectConfiguration;
         }
 
         #endregion
 
-        private string GetPropertyName()
-        {
-            var propertyExpression = (MemberExpression) _property.Body;
-            return propertyExpression.Member.Name;
-        }
     }
 }

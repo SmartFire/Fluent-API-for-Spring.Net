@@ -28,6 +28,7 @@ namespace FluentSpring.Context.Support
                 Log.Warn(string.Format("This context type {0} does not support fluent configuration for object definitions.", contextType));
             }
 
+            // the get assembly resources method will parse my resource strings I definied in spring config and return me an extended set
             string[] overridenResources = GetAssemblyResources(resources);
             return base.InstantiateContext(parent, configContext, contextName, contextType, caseSensitive, overridenResources);
         }

@@ -6,4 +6,5 @@ namespace FluentSpring.Context.Configuration
     {
         ICanBindDictionaryKey<T, V> AddEntry();
     }
+
 }
