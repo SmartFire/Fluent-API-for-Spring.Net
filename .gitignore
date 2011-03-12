@@ -1,0 +1,13 @@
+build
+debug
+obj
+bin
+deploy
+deploy/*
+*ReSharper*
+*.csproj.user
+*.resharper.user
+*.resharper
+*.suo
+*.cache
+~$*

@@ -61,9 +61,6 @@
     <Reference Include="Spring.Core">
       <HintPath>..\Libraries\Spring.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Spring.Data">
-      <HintPath>..\Libraries\Spring.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Spring.Web">
       <HintPath>..\Libraries\Spring.Web.dll</HintPath>
     </Reference>
