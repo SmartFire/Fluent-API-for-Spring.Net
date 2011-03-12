@@ -26,7 +26,7 @@ using System.IO;
 using Common.Logging;
 using Common.Logging.Log4Net;
 using FluentSpring.Context;
-using FluentSpring.Context.Support;
+using FluentSpring.Context.Extensions;
 using Spring.Context;
 using Spring.Context.Support;
 using Spring.Objects.Factory.Config;
@@ -72,7 +72,10 @@ namespace Spring.IocQuickStart.MovieFinder
                 //var ctx = CreateContextProgrammaticallyWithAutoWire();     
                 #endregion
 
-                var lister = (MovieLister) ctx.GetObject("MyMovieLister");
+                //var lister = (MovieLister) ctx.GetObject("MyMovieLister");
+                // you can do this instead by using the extension method on IApplicationContext.GetObject<T>();
+                var lister = ctx.GetObject<MovieLister>();
+
                 Movie[] movies = lister.MoviesDirectedBy("Roberto Benigni");
                 LOG.Debug("Searching for movie...");
                 foreach (Movie movie in movies)
@@ -106,19 +109,16 @@ namespace Spring.IocQuickStart.MovieFinder
 
         private static IApplicationContext CreateContextFluently()
         {
-            var ctx = new FluentGenericApplicationContext();
-
             FluentApplicationContext.Clear();
 
             FluentApplicationContext.Register<ColonDelimitedMovieFinder>("ColonDelimitedMovieFinder")
                 .BindConstructorArgument<FileInfo>().To(new FileInfo("movies.txt"));
 
-            FluentApplicationContext.Register<MovieLister>("MyMovieLister")
+            // By default, fluent spring will create an identifier (Type.FullName) when using Register<T>()
+            FluentApplicationContext.Register<MovieLister>()
                 .Bind(x => x.MovieFinder).To<IMovieFinder>("ColonDelimitedMovieFinder");
 
-            FluentStaticConfiguration.ObjectDefinitionLoader.LoadObjectDefinitions(ctx.ObjectFactory);
-
-            return ctx;
+            return ContextRegistry.GetContext();
         }
 
         private static IApplicationContext CreateContextProgrammatically()
