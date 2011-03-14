@@ -38,15 +38,15 @@ namespace FluentSpring.Context.Configuration.Binders
         {
             if (!string.IsNullOrEmpty(_construtorArgumentName))
             {
-                _configurationParser.SetConstructorArgumentWithNameToReference(_construtorArgumentName, typeof (T).FullName);
+                _configurationParser.SetConstructorArgumentWithNameToReference(_construtorArgumentName, typeof (V).FullName);
             }
             else if (_construtorArgumentType != null)
             {
-                _configurationParser.SetConstructorArgumentWithTypeToReference(_construtorArgumentType, _construtorArgumentType.FullName);
+                _configurationParser.SetConstructorArgumentWithTypeToReference(_construtorArgumentType, typeof(V).FullName);
             }
             else
             {
-                _configurationParser.SetConstructorArgumentIndexToReference(_construtorArgumentIndex, typeof (T).FullName);
+                _configurationParser.SetConstructorArgumentIndexToReference(_construtorArgumentIndex, typeof(V).FullName);
             }
 
             return _objectBinder;
