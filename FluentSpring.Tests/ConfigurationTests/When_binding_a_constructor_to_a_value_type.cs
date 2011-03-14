@@ -3,6 +3,7 @@ using FluentSpring.Tests.TestObjects;
 using NUnit.Framework;
 using Spring.Context;
 using Spring.Objects.Factory;
+using FluentSpring.Context.Extensions;
 
 namespace FluentSpring.Tests.ConfigurationTests
 {
@@ -69,6 +70,21 @@ namespace FluentSpring.Tests.ConfigurationTests
             Assert.AreEqual("const", initialisedObject.First);
         }
 
+        [Test]
+        public void Then_the_constructor_argument_of_interface_type_can_be_bound_to_its_implementation()
+        {
+            FluentApplicationContext.Register<ObjectWithProperties>();
+
+            FluentApplicationContext.Register<ObjectWithConstructor>("object")
+                .BindConstructorArgument<IObjectWithPropertiesInterface>().To<ObjectWithProperties>();
+
+            IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
+
+            var initialisedObject = applicationContext.GetObject<ObjectWithConstructor>("object");
+            var objectInjected = applicationContext.GetObject<ObjectWithProperties>();
+
+            Assert.AreSame(objectInjected, initialisedObject.ObjectInferface);
+        }
 
         [Test]
         public void Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_name()
