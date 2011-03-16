@@ -98,6 +98,7 @@ namespace FluentSpring.Context.Objects.Factory.Support
         public void Clear()
         {
             _springObjectConfigurations.Clear();
+            _conventions.Clear();
         }
 
         public void RegisterConvention(ICanConfigureConvention conventionParser)
