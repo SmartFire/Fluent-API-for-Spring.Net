@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Linq;
 using Common.Logging;
 using FluentSpring.Context.Configuration;
-using FluentSpring.Context.Configuration.Binders;
 using FluentSpring.Context.Support;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
@@ -16,8 +15,9 @@ namespace FluentSpring.Context.Objects.Factory.Support
     /// </summary>
     public class FluentObjectDefinitionLoader : IFluentObjectDefinitionRegistry
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(FluentObjectDefinitionLoader));
         private static readonly IList<ICanContainConfiguration> _springObjectConfigurations = new List<ICanContainConfiguration>();
-        private static readonly ILog Log = LogManager.GetLogger(typeof (FluentObjectDefinitionLoader));
+        private static readonly IList<ICanConfigureConvention> _conventions = new List<ICanConfigureConvention>();
         private readonly IObjectDefinitionFactory _objectDefinitionFactory;
 
         public FluentObjectDefinitionLoader(IObjectDefinitionFactory objectDefinitionFactory)
@@ -35,10 +35,17 @@ namespace FluentSpring.Context.Objects.Factory.Support
         {
             var definitionService = new ObjectDefinitionService(_objectDefinitionFactory, listableObjectFactory);
 
+            LoadRegisteredObjects(listableObjectFactory, definitionService);
+        }
+
+        private static void LoadRegisteredObjects(IConfigurableListableObjectFactory listableObjectFactory, ObjectDefinitionService definitionService)
+        {
             foreach (IRegistrableObject registrableObject in _springObjectConfigurations
-                                                                    .OfType<IRegistrableObject>()
-                                                                    .Select(configurationContainer => (configurationContainer)))
+                .OfType<IRegistrableObject>()
+                .Select(configurationContainer => (configurationContainer)))
             {
+                InitialiseConventions(registrableObject);
+
                 var objectDefinition = registrableObject.GetObjectDefinition(definitionService);
 
                 listableObjectFactory.RegisterObjectDefinition(registrableObject.Identifier, objectDefinition);
@@ -52,6 +59,21 @@ namespace FluentSpring.Context.Objects.Factory.Support
                             listableObjectFactory.RegisterObjectDefinition(@interface.FullName, objectDefinition);
                         }
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Goes through the list of conventions registered and create initial configuration.
+        /// </summary>
+        /// <param name="registrableObject">The registrable object.</param>
+        private static void InitialiseConventions(IRegistrableObject registrableObject)
+        {
+            foreach (ICanConfigureConvention convention in _conventions)
+            {
+                if (convention.IsApplicableToType(registrableObject.DomainObjectType))
+                {
+                    registrableObject.AddConvention(convention.GetConventionApplicant());
                 }
             }
         }
@@ -76,6 +98,11 @@ namespace FluentSpring.Context.Objects.Factory.Support
         public void Clear()
         {
             _springObjectConfigurations.Clear();
+        }
+
+        public void RegisterConvention(ICanConfigureConvention conventionParser)
+        {
+            _conventions.Add(conventionParser);
         }
 
         internal ICanContainConfiguration GetConfigurationParser(string identifier)

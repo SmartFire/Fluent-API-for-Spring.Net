@@ -31,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -74,24 +75,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\Configuration\Binders\ApplyConventionBinder.cs" />
+    <Compile Include="Context\Configuration\ICanRegisterConvention.cs" />
+    <Compile Include="Context\Conventions\IConvention.cs" />
     <Compile Include="Context\Configuration\Binders\ListBinder.cs" />
     <Compile Include="Context\Configuration\Binders\NameValueCollectionBinder.cs" />
     <Compile Include="Context\Configuration\Binders\NameValueKeyBinder.cs" />
     <Compile Include="Context\Configuration\Binders\NameValueValueBinder.cs" />
-    <Compile Include="Context\Configuration\Conventions\ICanBindPropertyOfType.cs" />
-    <Compile Include="Context\Configuration\Conventions\Support\PropertyBindingConvention.cs" />
-    <Compile Include="Context\Configuration\ICanApplyConvention.cs" />
-    <Compile Include="Context\Configuration\Conventions\ICanApplyConventionToTypes.cs" />
-    <Compile Include="Context\Configuration\Conventions\Filters\ICanFilterType.cs" />
-    <Compile Include="Context\Configuration\Conventions\IConvention.cs" />
-    <Compile Include="Context\Configuration\Conventions\Filters\ICanFilterAssembly.cs" />
-    <Compile Include="Context\Configuration\Conventions\Support\TypeFilterConvention.cs" />
-    <Compile Include="Context\Configuration\Conventions\Support\TypeNameConvention.cs" />
+    <Compile Include="Context\Configuration\Binders\PropertyOfTypeBinder.cs" />
+    <Compile Include="Context\Conventions\Support\PropertyTypeInjectionConvention.cs" />
+    <Compile Include="Context\Configuration\Binders\TypeFilterBinder.cs" />
+    <Compile Include="Context\Configuration\ICanConfigureConvention.cs" />
+    <Compile Include="Context\Configuration\ICanFilterType.cs" />
+    <Compile Include="Context\Configuration\ICanBindPropertyOfType.cs" />
+    <Compile Include="Context\Configuration\ICanInjectPropertyOfType.cs" />
+    <Compile Include="Context\Configuration\ICanFilterAssembly.cs" />
+    <Compile Include="Context\Conventions\Support\TypeNameConvention.cs" />
     <Compile Include="Context\Configuration\ICanAddNameValueEntry.cs" />
     <Compile Include="Context\Configuration\ICanBindAssemblyObject.cs" />
     <Compile Include="Context\Configuration\ICanBindNameValueKey.cs" />
     <Compile Include="Context\Configuration\ICanBindNameValueValue.cs" />
     <Compile Include="Context\Extensions\TypeExtensions.cs" />
+    <Compile Include="Context\Parsers\ConventionConfigurationParser.cs" />
     <Compile Include="Context\Parsers\NameValueCollectionParser.cs" />
     <Compile Include="Context\Configuration\ICanAutoWireObject.cs" />
     <Compile Include="Context\Configuration\ICanBindClass.cs" />

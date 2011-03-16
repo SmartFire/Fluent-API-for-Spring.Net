@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentSpring.Context.Conventions;
 using FluentSpring.Context.Objects.Factory;
 using Spring.Objects.Factory.Config;
 
@@ -24,5 +25,11 @@ namespace FluentSpring.Context.Configuration
         /// <param name="objectDefinitionService">The object definition service.</param>
         /// <returns></returns>
         IObjectDefinition GetObjectDefinition(IObjectDefinitionService objectDefinitionService);
+
+        /// <summary>
+        /// Add the convention which will need to be applied during the object definition initialisation.
+        /// </summary>
+        /// <param name="convention">The convention.</param>
+        void AddConvention(IConvention convention);
     }
 }

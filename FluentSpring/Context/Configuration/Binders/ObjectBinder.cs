@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq.Expressions;
-using FluentSpring.Context.Configuration.Conventions;
 using FluentSpring.Context.Parsers;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
@@ -175,12 +174,6 @@ namespace FluentSpring.Context.Configuration.Binders
             {
                 throw new Exception(string.Format("Unrecognisable method/property, use Bind<Type>(\"propertyname\") instead"));
             }
-        }
-
-        public ICanConfigureObject<T> Apply(IConvention convention) 
-        {
-            _configurationParser.ApplyConvention(convention);
-            return this;
         }
 
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Configuration.Constraints;
+using FluentSpring.Context.Conventions;
 using FluentSpring.Context.Objects.Factory;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
@@ -84,6 +85,11 @@ namespace FluentSpring.Context.Parsers
             }
 
             return objectDefinition;
+        }
+
+        public void AddConvention(IConvention convention)
+        {
+            throw new NotImplementedException();
         }
 
         public string Identifier

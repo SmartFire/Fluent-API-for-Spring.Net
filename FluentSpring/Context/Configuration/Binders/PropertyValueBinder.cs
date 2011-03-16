@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using FluentSpring.Context.Parsers;
+﻿using FluentSpring.Context.Parsers;
 
 namespace FluentSpring.Context.Configuration.Binders
 {

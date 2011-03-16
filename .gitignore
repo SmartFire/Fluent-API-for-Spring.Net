@@ -1,13 +1,22 @@
+
+# build folders
 build
+
 debug
+
 obj
+
 bin
+
 deploy
-deploy/*
-*ReSharper*
-*.csproj.user
+
+
+# user files
+*.user
+
 *.resharper.user
+
 *.resharper
+
 *.suo
-*.cache
-~$*
+*

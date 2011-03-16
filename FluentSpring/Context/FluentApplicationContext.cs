@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Configuration.Binders;
-using FluentSpring.Context.Configuration.Conventions;
-using FluentSpring.Context.Configuration.Conventions.Filters;
 using FluentSpring.Context.Parsers;
 using FluentSpring.Context.Support;
 using Spring.Objects.Factory.Config;
@@ -60,44 +55,18 @@ namespace FluentSpring.Context
             return objectBinder;
         }
 
-        public static ICanConfigureObject<T> For<T>(Type objectType)
-        {
-            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser(objectType);
-            if (configurationParser == null)
-            {
-                configurationParser = new ObjectDefinitionParser(objectType);
-            }
-
-            var objectBinder = new ObjectBinder<T>((ObjectDefinitionParser)configurationParser);
-
-            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
-            return objectBinder;
-        }
-
-        public static ICanConfigureObject<T> For<T>(Type objectType, string identifierName)
-        {
-            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser(identifierName);
-            if (configurationParser == null)
-            {
-                configurationParser = new ObjectDefinitionParser(objectType, identifierName);
-            }
-
-            var objectBinder = new ObjectBinder<T>((ObjectDefinitionParser)configurationParser);
-
-            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
-            return objectBinder;
-        }
-
-        public static ICanFilterType In(Func<Assembly, bool> assemblyCondition)
-        {
-            return null;
-        }
-
         public static ICanConfigureObject<T> Register<T>(Func<ICanConfigureObject<T>> objectConfigurer) where T : class
         {
             ICanConfigureObject<T> configuration = objectConfigurer();
             FluentStaticConfiguration.RegisterObjectConfiguration(configuration.GetConfigurationParser());
             return configuration;
+        }
+
+        public static ICanFilterType RegisterConvention()
+        {
+            ConventionConfigurationParser conventionConfigurationParser = new ConventionConfigurationParser();
+            FluentStaticConfiguration.RegisterConvention(conventionConfigurationParser);
+            return new TypeFilterBinder(conventionConfigurationParser);
         }
 
         /// <summary>

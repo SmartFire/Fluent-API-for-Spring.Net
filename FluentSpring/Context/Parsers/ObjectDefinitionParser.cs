@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentSpring.Context.Configuration;
-using FluentSpring.Context.Configuration.Conventions;
-using FluentSpring.Context.Configuration.Conventions.Support;
+using FluentSpring.Context.Conventions;
+using FluentSpring.Context.Conventions.Support;
 using FluentSpring.Context.Objects.Factory;
 using FluentSpring.Context.Support;
 using Spring.Objects;
@@ -214,14 +214,14 @@ namespace FluentSpring.Context.Parsers
                 {
                     if (Identifier.Equals(DomainObjectType.FullName))
                     {
-                        _identifier = ((TypeNameConvention) convention).GetIdentifierForType(DomainObjectType);
+                        _identifier = ((TypeNameConvention)convention).GetIdentifierForType(DomainObjectType);
                     }
                 }
                 else
                 {
-                    convention.ApplyConvention(objectDefinition);    
+                    convention.ApplyConvention(_identifier, objectDefinition);
                 }
-                
+
             }
 
             if (objectDefinition is RootWebObjectDefinition || objectDefinition is ChildWebObjectDefinition)
@@ -251,16 +251,16 @@ namespace FluentSpring.Context.Parsers
             return objectDefinition;
         }
 
+        public void AddConvention(IConvention convention)
+        {
+            _conventions.Add(convention);
+        }
+
         #endregion
 
         public void SetScope(ObjectScope objectScope)
         {
             _objectScope = objectScope;
-        }
-
-        public void ApplyConvention(IConvention convention)
-        {
-            _conventions.Add(convention);
         }
 
     }

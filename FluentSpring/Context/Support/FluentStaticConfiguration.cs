@@ -2,6 +2,7 @@
 using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Objects.Factory;
 using FluentSpring.Context.Objects.Factory.Support;
+using FluentSpring.Context.Parsers;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
 
@@ -68,5 +69,9 @@ namespace FluentSpring.Context.Support
             _fluentObjectDefinitionRegistry.RegisterObjectConfiguration(configurationParser);
         }
 
+        public static void RegisterConvention(ICanConfigureConvention conventionConfigurationParser)
+        {
+            _fluentObjectDefinitionRegistry.RegisterConvention(conventionConfigurationParser);
+        }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FluentSpring.Context;
-using FluentSpring.Context.Configuration.Conventions;
-using FluentSpring.Context.Configuration.Conventions.Support;
+using FluentSpring.Context.Conventions.Support;
 using FluentSpring.Tests.TestObjects;
 using NUnit.Framework;
 using Spring.Context;
@@ -13,82 +12,61 @@ namespace FluentSpring.Tests.ConfigurationTests
     [TestFixture]
     public class When_adding_a_convention : FluentContextTestBaseClass
     {
-        [Description("Demo")]
-        public void Then_my_object_configuration_must_apply_the_convention_I_created()
+        [Test]
+        public void Then_the_properties_of_type_defined_in_convention_must_be_injected()
         {
-            //ITypeFilterLookup assemblyTypeFilterLookup = new TypeFilterConvention();
-            
+            FluentApplicationContext.RegisterConvention()
+                    .For(() => AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.Contains("FluentSpring.Tests")).SelectMany(a=>a.GetTypes()).ToList())
+                .Apply<PropertyTypeInjectionConvention>()
+                    .Inject<IObjectWithPropertiesInterface>().With<ObjectWithProperties>();
 
-            //ITypeNameLookup typeNameConvention = new TypeNameConvention(t => t.FullName);
-            //PropertyBindingConvention propertyBindingConvention = new PropertyBindingConvention(x => typeNameConvention.GetTypeNameFor(x.DeclaringType));
+            FluentApplicationContext.Register<ObjectWithProperties>();
+            FluentApplicationContext.Register<TestObject>();
 
-            //FluentApplicationContext
-            //    .Apply(() => propertyBindingConvention)
-            //    .Apply(() => typeNameConvention)
-            //    .To(assemblyTypeFilterLookup.GetAllTypes);
+            IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
 
+            TestObject objectProperties = applicationContext.GetObject<TestObject>();
 
-            //FluentApplicationContext.RegisterAll(assemblyTypeFilterLookup.GetAllTypes);
-
-            //FluentApplicationContext.In(() => AppDomain.CurrentDomain.GetAssemblies());
+            Assert.IsNotNull(objectProperties.SomeObject);
         }
 
-        //[Test]
-        //public void Then_the_type_filter_should_only_return_the_selected_types()
-        //{
-        //    ITypeFilterLookup assemblyTypeConvention = new TypeFilterConvention();
-        //    assemblyTypeConvention
-        //        .For(t=>t.FullName.Equals(typeof(When_adding_a_convention).FullName))
-        //        .In(a=>a.FullName.Contains("FluentSpring"));
+        [Test]
+        public void Then_the_convention_must_be_applied_to_all_types_matching_the_lookup()
+        {
+            FluentApplicationContext.RegisterConvention()
+                    .For(() => AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.Contains("FluentSpring.Tests")).SelectMany(a => a.GetTypes()).ToList())
+                .Apply<PropertyTypeInjectionConvention>()
+                    .Inject<IObjectWithPropertiesInterface>().With<ObjectWithProperties>();
 
-        //    IList<Type> types = assemblyTypeConvention.GetAllTypes();
+            FluentApplicationContext.Register<ObjectWithProperties>();
+            
+            FluentApplicationContext.Register<TestObject>("A");
+            FluentApplicationContext.Register<TestObject>("B");
 
-        //    Assert.AreEqual(1, types.Count);
-        //}
+            IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
 
-        //[Test]
-        //public void Then_the_type_name_convention_must_apply_the_convention_to_the_type()
-        //{
-        //    IConvention typeNameConvention = new TypeNameConvention(t => t.Name);
+            TestObject objectA = applicationContext.GetObject<TestObject>("A");
+            TestObject objectB = applicationContext.GetObject<TestObject>("B");
 
-        //    string computedName = typeNameConvention.GetTypeNameFor(typeof (When_adding_a_convention));
+            Assert.AreSame(objectA.SomeObject,objectB.SomeObject);
+        }
 
-        //    Assert.AreEqual(typeof(When_adding_a_convention).Name, computedName);
-        //}
+        [Test]
+        public void Then_the_convention_is_not_applied_to_types_which_are_not_in_lookup()
+        {
+            FluentApplicationContext.RegisterConvention()
+                    .For(() => AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.Contains("AnotherTestLibrary")).SelectMany(a => a.GetTypes()).ToList())
+                .Apply<PropertyTypeInjectionConvention>()
+                    .Inject<IObjectWithPropertiesInterface>().With<ObjectWithProperties>();
 
-        //[Test]
-        //public void Then_the_property_binding_convention_must_return_the_type_name_to_inject()
-        //{
-        //    ITypeNameLookup typeNameConvention = new TypeNameConvention(t => t.Name);
-        //    IInjectedPropertyLookup propertyBindingConvention = new PropertyBindingConvention(x => typeNameConvention.GetTypeNameFor(x.DeclaringType));
+            FluentApplicationContext.Register<ObjectWithProperties>();
+            FluentApplicationContext.Register<TestObject>();
 
-        //    foreach (var propertyInfo in typeof(TestObject).GetProperties())
-        //    {
-        //        string computedTypeName = propertyBindingConvention.GetInjectedTypeFor(propertyInfo);
-        //        Assert.AreEqual(computedTypeName, propertyInfo.DeclaringType.Name);
-        //    }
-        //}
+            IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
 
-        //[Test]
-        //public void Then_the_registered_object_must_apply_the_type_name_convention()
-        //{
-        //    TypeNameConvention typeNameConvention = new TypeNameConvention(t => t.Name);
+            TestObject objectProperties = applicationContext.GetObject<TestObject>();
 
-        //    FluentApplicationContext.Register<TestObject>()
-        //        .Bind(x => x.PropertyX).To("X")
-        //        .Apply(typeNameConvention);
-
-        //    IApplicationContext context = _applicationContextContainer.InitialiseContext();
-
-        //    var testObject = context.GetObject<TestObject>(typeof(TestObject).Name);
-
-        //    Assert.IsNotNull(testObject);
-        //}
-
-        //[Test]
-        //public void Then_the_registered_object_must_apply_the_property_binding_convention()
-        //{
-        //    PropertyBindingConvention bindingConvention = new PropertyBindingConvention();
-        //}
+            Assert.IsNull(objectProperties.SomeObject);
+        }
     }
 }
