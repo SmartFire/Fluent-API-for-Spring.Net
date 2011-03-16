@@ -2,6 +2,7 @@
 {
     public class ObjectWithConstructor
     {
+        private readonly IObjectWithPropertiesInterface _objectInterface;
         private readonly string _first;
         private readonly int _second;
         private readonly TestObject _testObject;
@@ -30,6 +31,11 @@
             _testObject = testObject;
         }
 
+        public ObjectWithConstructor(IObjectWithPropertiesInterface objectInterface)
+        {
+            _objectInterface = objectInterface;
+        }
+
         public ObjectWithConstructor(TestObject testObject, string first)
         {
             _testObject = testObject;
@@ -39,6 +45,11 @@
         public string First
         {
             get { return _first; }
+        }
+
+        public IObjectWithPropertiesInterface ObjectInferface
+        {
+            get { return _objectInterface; }
         }
 
         public int Second
