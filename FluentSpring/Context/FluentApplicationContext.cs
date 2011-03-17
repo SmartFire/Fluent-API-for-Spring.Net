@@ -3,6 +3,7 @@ using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Configuration.Binders;
 using FluentSpring.Context.Parsers;
 using FluentSpring.Context.Support;
+using Spring.Context;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
 
@@ -55,11 +56,25 @@ namespace FluentSpring.Context
             return objectBinder;
         }
 
-        public static ICanConfigureObject<T> Register<T>(Func<ICanConfigureObject<T>> objectConfigurer) where T : class
+        public static ICanConfigureCreatedObject<T> Register<T>(Func<IApplicationContext, T> objectCreation)
         {
-            ICanConfigureObject<T> configuration = objectConfigurer();
-            FluentStaticConfiguration.RegisterObjectConfiguration(configuration.GetConfigurationParser());
-            return configuration;
+            return Register(objectCreation, typeof (T).FullName);
+        }
+
+        public static ICanConfigureCreatedObject<T> Register<T>(Func<IApplicationContext, T> objectCreation, string identifierName)
+        {
+            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser(identifierName);
+            if (configurationParser == null)
+            {
+                configurationParser = new ConstructorObjectDefinitionParser<T>(identifierName);
+
+            }
+
+            var objectBinder = new ConstructorObjectBinder<T>((ConstructorObjectDefinitionParser<T>)configurationParser);
+            objectBinder.AddConstructorDelegate(objectCreation);
+
+            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
+            return objectBinder;
         }
 
         public static ICanFilterType RegisterConvention()
@@ -67,6 +82,13 @@ namespace FluentSpring.Context
             ConventionConfigurationParser conventionConfigurationParser = new ConventionConfigurationParser();
             FluentStaticConfiguration.RegisterConvention(conventionConfigurationParser);
             return new TypeFilterBinder(conventionConfigurationParser);
+        }
+
+        public static ICanConfigureObject<T> Register<T>(Func<ICanConfigureObject<T>> objectConfigurer) where T : class
+        {
+            ICanConfigureObject<T> configuration = objectConfigurer();
+            FluentStaticConfiguration.RegisterObjectConfiguration(configuration.GetConfigurationParser());
+            return configuration;
         }
 
         /// <summary>

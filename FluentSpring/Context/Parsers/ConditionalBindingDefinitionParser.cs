@@ -89,7 +89,7 @@ namespace FluentSpring.Context.Parsers
 
         public void AddConvention(IConvention convention)
         {
-            throw new NotImplementedException();
+            // not supported for this parser - yet...
         }
 
         public string Identifier

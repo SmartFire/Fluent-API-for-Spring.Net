@@ -110,8 +110,7 @@ namespace FluentSpring.Context.Objects.Factory.Support
         {
             return _springObjectConfigurations
                         .FirstOrDefault(springObjectConfiguration => ((IRegistrableObject) springObjectConfiguration)
-                                                                            .Identifier.Equals(identifier, System.StringComparison.InvariantCultureIgnoreCase));
+                                                                            .Identifier.Equals(identifier, StringComparison.InvariantCultureIgnoreCase));
         }
-
     }
 }

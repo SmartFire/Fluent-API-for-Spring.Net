@@ -73,5 +73,6 @@ namespace FluentSpring.Context.Support
         {
             _fluentObjectDefinitionRegistry.RegisterConvention(conventionConfigurationParser);
         }
+
     }
 }

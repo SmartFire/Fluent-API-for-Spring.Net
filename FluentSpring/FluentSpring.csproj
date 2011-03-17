@@ -76,6 +76,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\Configuration\Binders\ApplyConventionBinder.cs" />
+    <Compile Include="Context\Configuration\Binders\ConstructorObjectBinder.cs" />
+    <Compile Include="Context\Configuration\ICanConfigureCreatedObject.cs" />
+    <Compile Include="Context\Configuration\ICanDefineAsAbstract.cs" />
+    <Compile Include="Context\Configuration\ICanDefineAsPrototype.cs" />
+    <Compile Include="Context\Configuration\ICanDefineAsSingleton.cs" />
     <Compile Include="Context\Configuration\ICanRegisterConvention.cs" />
     <Compile Include="Context\Conventions\IConvention.cs" />
     <Compile Include="Context\Configuration\Binders\ListBinder.cs" />
@@ -96,6 +101,8 @@
     <Compile Include="Context\Configuration\ICanBindNameValueKey.cs" />
     <Compile Include="Context\Configuration\ICanBindNameValueValue.cs" />
     <Compile Include="Context\Extensions\TypeExtensions.cs" />
+    <Compile Include="Context\Factories\ConstructorFactory.cs" />
+    <Compile Include="Context\Parsers\ConstructorObjectDefinitionParser.cs" />
     <Compile Include="Context\Parsers\ConventionConfigurationParser.cs" />
     <Compile Include="Context\Parsers\NameValueCollectionParser.cs" />
     <Compile Include="Context\Configuration\ICanAutoWireObject.cs" />
@@ -105,7 +112,6 @@
     <Compile Include="Context\Configuration\ICanDestroy.cs" />
     <Compile Include="Context\Configuration\ICanAddListEntry.cs" />
     <Compile Include="Context\Parsers\ConstraintDefinitionParser.cs" />
-    <Compile Include="Context\Configuration\Constraints\ConstrainableRuntimeFactoryObject.cs" />
     <Compile Include="Context\Configuration\ICanUseFactory.cs" />
     <Compile Include="Context\Configuration\ICanBindInterface.cs" />
     <Compile Include="Context\Configuration\ICanSetAConstraint.cs" />
