@@ -1,0 +1,4 @@
+<Modules>
+  <Module PersistentId="B303FD06-98BB-4C03-BCD5-EA557645F16A" ModuleId="FluentSpring" />
+  <Module PersistentId="0B73875D-06A3-431A-B673-6233864D31DA" ModuleId="FluentSpring.Tests" />
+</Modules>

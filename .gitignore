@@ -1,22 +1,13 @@
 
 # build folders
 build
-
 debug
-
 obj
-
 bin
-
 deploy
-
 
 # user files
 *.user
-
 *.resharper.user
-
 *.resharper
-
 *.suo
-*
