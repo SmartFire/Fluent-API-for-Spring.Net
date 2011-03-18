@@ -195,18 +195,9 @@ namespace FluentSpring.Context.Parsers
         /// </summary>
         /// <param name="objectDefinitionService">The object definition service.</param>
         /// <returns></returns>
-        public IObjectDefinition GetObjectDefinition(IObjectDefinitionService objectDefinitionService)
+        public virtual IObjectDefinition GetObjectDefinition(IObjectDefinitionService objectDefinitionService)
         {
-            IConfigurableObjectDefinition objectDefinition;
-            
-            if (String.IsNullOrEmpty(_parentDefinition))
-            {
-                objectDefinition = objectDefinitionService.Factory.CreateObjectDefinition(DomainObjectType.AssemblyQualifiedName, null, AppDomain.CurrentDomain);
-            }
-            else
-            {
-                objectDefinition = objectDefinitionService.Factory.CreateObjectDefinition(DomainObjectType.AssemblyQualifiedName, _parentDefinition, AppDomain.CurrentDomain);
-            }
+            IConfigurableObjectDefinition objectDefinition = CreateObjectDefinition(objectDefinitionService);
 
             foreach (var convention in _conventions)
             {
@@ -256,12 +247,27 @@ namespace FluentSpring.Context.Parsers
             _conventions.Add(convention);
         }
 
-        #endregion
-
         public void SetScope(ObjectScope objectScope)
         {
             _objectScope = objectScope;
         }
+
+        #endregion
+
+        private IConfigurableObjectDefinition CreateObjectDefinition(IObjectDefinitionService objectDefinitionService)
+        {
+            IConfigurableObjectDefinition objectDefinition;
+            if (String.IsNullOrEmpty(_parentDefinition))
+            {
+                objectDefinition = objectDefinitionService.Factory.CreateObjectDefinition(DomainObjectType.AssemblyQualifiedName, null, AppDomain.CurrentDomain);
+            }
+            else
+            {
+                objectDefinition = objectDefinitionService.Factory.CreateObjectDefinition(DomainObjectType.AssemblyQualifiedName, _parentDefinition, AppDomain.CurrentDomain);
+            }
+            return objectDefinition;
+        }
+
 
     }
 }

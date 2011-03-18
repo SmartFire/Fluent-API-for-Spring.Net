@@ -87,6 +87,8 @@
   <ItemGroup>
     <Compile Include="ConfigurationTests\When_adding_a_convention.cs" />
     <Compile Include="ConfigurationTests\When_binding_to_a_property_indexer.cs" />
+    <Compile Include="ConfigurationTests\When_registering_an_object_to_a_repository.cs" />
+    <Compile Include="ConfigurationTests\When_registering_an_object_with_a_delegate_for_construction.cs" />
     <Compile Include="FluentContextTestBaseClass.cs" />
     <Compile Include="ConfigurationTests\When_binding_an_inline_list_to_a_property.cs" />
     <Compile Include="ConfigurationTests\When_binding_a_constructor_to_a_value_type.cs" />
