@@ -5,6 +5,7 @@ debug
 obj
 bin
 deploy
+*_ReSharper
 
 # user files
 *.user
