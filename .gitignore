@@ -5,10 +5,10 @@ debug
 obj
 bin
 deploy
-*_ReSharper
 
 # user files
 *.user
 *.resharper.user
 *.resharper
 *.suo
+_ReSharper*
