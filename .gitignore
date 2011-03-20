@@ -1,9 +1,12 @@
 
 # build folders
 build
+
 debug
+
 obj
 bin
+
 deploy
 
 # user files
@@ -11,7 +14,10 @@ deploy
 *.resharper
 .user
 *.user
+
 *.resharper.user
 *.resharper
+
 *.suo
+
 _ReSharper*
