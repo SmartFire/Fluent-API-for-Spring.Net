@@ -1,7 +1,8 @@
 
 # build folders
 debug
-
+package
+release
 obj
 bin
 
@@ -12,7 +13,7 @@ deploy
 *.resharper
 .user
 *.user
-
+*.nupkg
 *.resharper.user
 *.resharper
 

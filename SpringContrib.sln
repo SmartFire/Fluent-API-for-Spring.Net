@@ -5,6 +5,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSpring", "src\FluentS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentSpring.Tests", "tests\FluentSpring.Tests\FluentSpring.Tests.csproj", "{0B73875D-06A3-431A-B673-6233864D31DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{584D40F4-5EDB-4189-BEE5-3562BA0B6B2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{157ACD56-AB85-4739-B4CE-0D718CC733E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{349F3C60-4BE9-4DCB-A3B1-EFEAAEBF6651}"
+	ProjectSection(SolutionItems) = preProject
+		build\rakefile.rb = build\rakefile.rb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,5 +41,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B303FD06-98BB-4C03-BCD5-EA557645F16A} = {584D40F4-5EDB-4189-BEE5-3562BA0B6B2F}
+		{0B73875D-06A3-431A-B673-6233864D31DA} = {157ACD56-AB85-4739-B4CE-0D718CC733E6}
 	EndGlobalSection
 EndGlobal

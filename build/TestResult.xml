@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\Yoann\Documents\My Dropbox\FluentSpring\build\release\FluentSpring.Tests.dll" total="64" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2011-03-20" time="13:12:45">
+  <environment nunit-version="2.5.9.10348" clr-version="2.0.50727.4952" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Users\Yoann\Documents\My Dropbox\FluentSpring\build" machine-name="PROGRESS-IT" user="Yoann" user-domain="Progress-IT" />
+  <culture-info current-culture="en-GB" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="C:\Users\Yoann\Documents\My Dropbox\FluentSpring\build\release\FluentSpring.Tests.dll" executed="True" result="Success" success="True" time="0.937" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="FluentSpring" executed="True" result="Success" success="True" time="0.927" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="0.922" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="ConfigurationTests" executed="True" result="Success" success="True" time="0.921" asserts="0">
+                <results>
+                  <test-suite type="TestFixture" name="When_adding_a_convention" executed="True" result="Success" success="True" time="0.596" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_adding_a_convention.Then_the_convention_is_not_applied_to_types_which_are_not_in_lookup" executed="True" result="Success" success="True" time="0.516" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_adding_a_convention.Then_the_convention_must_be_applied_to_all_types_matching_the_lookup" executed="True" result="Success" success="True" time="0.067" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_adding_a_convention.Then_the_properties_of_type_defined_in_convention_must_be_injected" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_a_constructor" executed="True" result="Success" success="True" time="0.081" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_it_will_fail_if_the_argument_index_are_wrong" executed="True" result="Success" success="True" time="0.016" asserts="0" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_constructor_argument_of_interface_type_can_be_bound_to_its_implementation" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_index" executed="True" result="Success" success="True" time="0.023" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_index_and_inline_definition" executed="True" result="Success" success="True" time="0.019" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_index_and_reference" executed="True" result="Success" success="True" time="0.004" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_name" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_name_and_inline_definition" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_name_and_reference" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_type" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_constructor.Then_the_object_must_be_initialised_with_the_right_values_when_passed_by_type_and_inline_definition" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_a_property_to_a_namevaluecollection" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_a_namevaluecollection.Then_I_should_get_a_name_value_collection" executed="True" result="Success" success="True" time="0.008" asserts="2" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_a_property_to_a_reference" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_a_reference.Then_the_property_must_be_initialised_by_its_registered_identifier" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_a_reference.Then_the_property_must_be_initialised_by_its_registered_reference" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_a_property_to_an_inline_definition" executed="True" result="Success" success="True" time="0.004" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_an_inline_definition.Then_the_inline_definition_must_not_clash_with_other_defined_definitions_of_same_type" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_an_inline_definition.Then_the_object_property_must_be_initialised" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_a_property_to_dictionary" executed="True" result="Success" success="True" time="0.052" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_key_and_value_must_be_injected_with_inline_objects" executed="True" result="Success" success="True" time="0.017" asserts="3" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_key_must_be_injected_with_inline_object" executed="True" result="Success" success="True" time="0.008" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_key_must_be_injected_with_registered_object" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_must_be_injected" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_value_and_key_must_be_injected_with_registered_objects" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_value_and_key_must_be_injected_with_registered_types" executed="True" result="Success" success="True" time="0.004" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_value_must_be_injected_with_inline_object" executed="True" result="Success" success="True" time="0.005" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_value_must_be_injected_with_registered_object" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_a_property_to_dictionary.Then_the_dictionary_value_must_be_injected_with_registered_type" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_an_inline_list_to_a_property" executed="True" result="Success" success="True" time="0.012" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_an_inline_list_to_a_property.Then_the_list_can_contain_inline_definition" executed="True" result="Success" success="True" time="0.006" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_an_inline_list_to_a_property.Then_the_list_must_be_initialised" executed="True" result="Success" success="True" time="0.003" asserts="3" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_an_inline_list_to_a_property.Then_the_list_must_be_initialised_with_the_references" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_property_to_a_value_type" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_property_to_a_value_type.Then_object_datetime_property_must_be_set_to_its_bound_value" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_property_to_a_value_type.Then_object_dictionary_property_must_be_set_to_its_bound_value" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_property_to_a_value_type.Then_the_object_int_property_must_be_set_to_its_bound_value" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_property_to_a_value_type.Then_the_object_string_property_must_be_set_to_its_bound_value" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_binding_to_a_property_indexer" executed="True" result="Success" success="True" time="0.031" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_binding_to_a_property_indexer.Then_the_entries_must_be_added" executed="True" result="Success" success="True" time="0.031" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_defining_an_abstract_object" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_defining_an_abstract_object.Then_I_should_not_be_able_to_get_an_instance_of_that_object" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_initialising_a_test_application_context" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_initialising_a_test_application_context.It_must_load_the_application_context" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_interface" executed="True" result="Success" success="True" time="0.028" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_interface.Then_I_should_be_able_to_get_the_object_instance" executed="True" result="Success" success="True" time="0.009" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_interface.Then_I_should_be_able_to_register_several_objects_to_the_same_interface" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_interface.Then_it_should_only_return_the_registered_object_which_is_available_by_condition" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_interface.Then_it_should_only_return_the_registered_object_which_is_available_by_condition_and_the_first_one_it_finds" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_interface.Then_the_object_properties_must_bound_to_the_registered_interface" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_interface.Then_when_the_condition_result_changes_but_the_mapping_is_static_then_it_should_return_the_original_object" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_interface.Then_when_the_condition_result_changes_it_should_return_the_other_object" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_object" executed="True" result="Success" success="True" time="0.016" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_it_must_return_a_different_instance" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_it_must_return_the_singleton_instance" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_it_should_still_be_there_when_the_context_is_refreshed" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_the_object_must_be_defined_in_spring_object_definitions" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_the_object_must_be_registered_when_using_the_configurer_delegate" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_the_object_must_registered_with_the_identifier_passed_in" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_the_object_of_same_type_with_different_identifiers_must_be_registered" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object.Then_the_object_of_same_type_with_different_identifiers_must_not_be_the_same" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_object_to_a_factory" executed="True" result="Success" success="True" time="0.016" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_to_a_factory.Then_it_should_create_the_object_using_the_factory_method" executed="True" result="Success" success="True" time="0.014" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_to_a_factory.Then_it_should_throw_an_exception_if_the_factory_method_has_parameters" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_object_to_a_repository" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_to_a_repository.Then_the_associated_repository_must_be_used" executed="True" result="Success" success="True" time="0.005" asserts="2" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_object_with_a_delegate_for_construction" executed="True" result="Success" success="True" time="0.024" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_delegate_for_construction.Then_the_object_must_be_instantiated_with_the_context_injected_values" executed="True" result="Success" success="True" time="0.015" asserts="3" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_delegate_for_construction.Then_the_object_must_be_retrievable_by_name_with_the_context_injected_values" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_delegate_for_construction.Then_the_object_must_be_the_same_if_registered_as_singleton" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_delegate_for_construction.Then_the_object_must_not_be_the_same_if_not_registered_as_a_singleton" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_delegate_for_construction.Then_the_object_property_binding_must_also_be_injected" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_object_with_a_destroy_method" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_destroy_method.Then_the_initialise_method_must_be_called_to_create_an_object_instance" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_object_with_a_parent_definition" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_parent_definition.Then_the_sub_properties_must_be_initialised" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_a_parent_definition.Then_the_sub_property_shouldnt_be_initialised_if_no_parent_selected" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="When_registering_an_object_with_initialise_method" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                    <results>
+                      <test-case name="FluentSpring.Tests.ConfigurationTests.When_registering_an_object_with_initialise_method.Then_the_initialise_method_must_be_called_to_create_an_object_instance" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
