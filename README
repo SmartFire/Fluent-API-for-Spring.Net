@@ -13,7 +13,7 @@ How to build
 ============
 
 
-build FluentSpring.sln solution file from VS
+build SpringContrib.sln solution file from VS
 
 or
 
@@ -24,4 +24,4 @@ execute rake from /build folder.
 	Albacore gem (gem install albacore)
 	NUnit bin folder in PATH
 	NCover installed
-	NuPack installed)
+	NuGet installed)
