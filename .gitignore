@@ -10,13 +10,13 @@ bin
 
 deploy
 
-
 # user files
 *.user
 
-*.resharper.user
-
+*.resharper
+.user
 *.resharper
 
 *.suo
-*
+
+_ReSharper*

@@ -11,6 +11,6 @@
 	<summary>With this extension you do not need to use xml for spring.net configuration, but instead configure your DI container in code</summary>
   </metadata>
   <files>
-      <file src="FluentSpring\bin\Release\*.dll" target="lib" /> 
+      <file src="src\FluentSpring\bin\Release\*.dll" target="lib" /> 
   </files>
 </package>
