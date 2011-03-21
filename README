@@ -9,19 +9,26 @@ with the current spring.framework versions 1.3.0 and 1.3.1.
 
 Because it is an extension, any xml configuration will still be loaded by the spring framework.
 
+How to use it
+=============
+
+Check wiki pages on github for more information.
+
 How to build
 ============
 
+If you've branched the source and want to contribute you can do one or two things:
 
-build SpringContrib.sln solution file from VS
+build SpringContrib.sln solution file from VS or execute rake from /build folder.
 
-or
+Using rake, you will need the following installed:
 
-execute rake from /build folder.
-(pre-requisites for rake: 
 	IronRuby, 
 	Ruby, 
 	Albacore gem (gem install albacore)
 	NUnit bin folder in PATH
+	
 	NCover installed
-	NuGet installed)
+	NuGet installed
+
+check the rakefile under build for the different rake tasks available.
