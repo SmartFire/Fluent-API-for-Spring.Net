@@ -38,9 +38,14 @@ end
 task :release do
     Dir.mkdir Dir.pwd+"/package"
     FileUtils.cp Dir.pwd+"/release/FluentSpring.dll", Dir.pwd+"/package/FluentSpring.dll"
-    FileUtils.cp Dir.pwd+"/release/Common.Logging.dll", Dir.pwd+"/package/Common.Logging.dll"
     FileUtils.cp Dir.pwd+"/release/Spring.Core.dll", Dir.pwd+"/package/Spring.Core.dll"
+    FileUtils.cp Dir.pwd+"/release/Spring.Data.dll", Dir.pwd+"/package/Spring.Data.dll"
+    FileUtils.cp Dir.pwd+"/release/Spring.Aop.dll", Dir.pwd+"/package/Spring.Aop.dll"
     FileUtils.cp Dir.pwd+"/release/Spring.Web.dll", Dir.pwd+"/package/Spring.Web.dll"
+    FileUtils.cp Dir.pwd+"/release/Common.Logging.dll", Dir.pwd+"/package/Common.Logging.dll"
+    FileUtils.cp Dir.pwd+"/release/Common.Logging.Log4Net.dll", Dir.pwd+"/package/Common.Logging.Log4Net.dll"
+    FileUtils.cp Dir.pwd+"/release/log4net.dll", Dir.pwd+"/package/log4net.dll"
+    #FileUtils.cp_r Dir.pwd+"/../lib/.", Dir.pwd+"/package/"
 end
 
 exec :package do |cmd|
