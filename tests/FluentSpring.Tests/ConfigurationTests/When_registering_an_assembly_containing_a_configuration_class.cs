@@ -42,6 +42,16 @@ namespace FluentSpring.Tests.ConfigurationTests
             Assert.IsNotNull(context.GetObject<TestObject>());
             Assert.IsNotNull(context.GetObject<TestObject>("secondObject"));
         }
+
+        [Test]
+        public void Then_it_should_load_all_configuration_containers_from_current_domain_by_default()
+        {
+            IApplicationContext context = _applicationContextContainer.InitialiseContext();
+
+            Assert.IsNotNull(context.GetObject<TestObject>());
+            Assert.IsNotNull(context.GetObject<TestObject>("secondObject"));
+        }
+
     }
 
     public class ConfigurationContainer : ICanConfigureApplicationContext

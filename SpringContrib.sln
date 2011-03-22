@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{157ACD56
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{349F3C60-4BE9-4DCB-A3B1-EFEAAEBF6651}"
 	ProjectSection(SolutionItems) = preProject
+		build\fluentspring.nuspec = build\fluentspring.nuspec
 		build\rakefile.rb = build\rakefile.rb
 	EndProjectSection
 EndProject
