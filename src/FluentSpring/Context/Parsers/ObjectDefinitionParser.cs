@@ -195,7 +195,7 @@ namespace FluentSpring.Context.Parsers
         /// </summary>
         /// <param name="objectDefinitionService">The object definition service.</param>
         /// <returns></returns>
-        public virtual IObjectDefinition GetObjectDefinition(IObjectDefinitionService objectDefinitionService)
+        public IObjectDefinition GetObjectDefinition(IObjectDefinitionService objectDefinitionService)
         {
             IConfigurableObjectDefinition objectDefinition = CreateObjectDefinition(objectDefinitionService);
 

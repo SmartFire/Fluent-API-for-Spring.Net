@@ -19,7 +19,7 @@ namespace FluentSpring.Context.Support
             return base.InstantiateContext(parentContext, configContext, contextName, contextType, caseSensitive, overridenResources);
         }
 
-        private string[] GetAssemblyResources(string[] resources)
+        private static string[] GetAssemblyResources(string[] resources)
         {
             return ResourceParser.GetAssemblyResources(resources);
         }

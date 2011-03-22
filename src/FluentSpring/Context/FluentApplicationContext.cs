@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Configuration.Binders;
 using FluentSpring.Context.Parsers;
@@ -30,16 +32,7 @@ namespace FluentSpring.Context
 
         public static ICanConfigureObject<T> Register<T>() where T : class
         {
-            ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser<T>();
-            if (configurationParser == null)
-            {
-                configurationParser = new ObjectDefinitionParser(typeof(T));
-            }
-
-            var objectBinder = new ObjectBinder<T>((ObjectDefinitionParser)configurationParser);
-
-            FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
-            return objectBinder;
+            return Register<T>(typeof (T).FullName);
         }
 
         public static ICanConfigureObject<T> Register<T>(string identifierName) where T : class
@@ -84,26 +77,6 @@ namespace FluentSpring.Context
             return new TypeFilterBinder(conventionConfigurationParser);
         }
 
-        public static ICanConfigureObject<T> Register<T>(Func<ICanConfigureObject<T>> objectConfigurer) where T : class
-        {
-            ICanConfigureObject<T> configuration = objectConfigurer();
-            FluentStaticConfiguration.RegisterObjectConfiguration(configuration.GetConfigurationParser());
-            return configuration;
-        }
-
-        /// <summary>
-        /// Binds the interface to a registered object. By default the mapped object will be resolved during the application context load, if you want the resolution to happen
-        /// at runtime you need to use the Bind<typeparamref name="T"/>(false) method instead.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static ICanBindInterface<T> Bind<T>()
-        {
-            var parser = new ConditionalBindingDefinitionParser(typeof (T));
-            FluentStaticConfiguration.RegisterObjectConfiguration(parser);
-            return new ConditionalBinder<T>(parser);
-        }
-
         /// <summary>
         /// Same as Bind<typeparamref name="T"/>() method, however the registered object resolution will be executed at runtime (i.e. upon the object's request from the context).
         /// </summary>
@@ -115,6 +88,27 @@ namespace FluentSpring.Context
             var parser = new ConditionalBindingDefinitionParser(typeof (T), isStatic);
             FluentStaticConfiguration.RegisterObjectConfiguration(parser);
             return new ConditionalBinder<T>(parser);
+        }
+
+        /// <summary>
+        /// Binds the interface to a registered object. By default the mapped object will be resolved during the application context load, if you want the resolution to happen
+        /// at runtime you need to use the Bind<typeparamref name="T"/>(false) method instead.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static ICanBindInterface<T> Bind<T>()
+        {
+            return Bind<T>(true);
+        }
+
+        /// <summary>
+        /// Scans the specified assemblies for any class which has fluent configuration. 
+        /// A class implementing ICanConfigureApplicationContext interface will be created and the Configure() method call.
+        /// </summary>
+        /// <param name="assemblies">The assemblies.</param>
+        public static void Scan(Func<IEnumerable<Assembly>> assemblies)
+        {
+            FluentStaticConfiguration.RegisterAssembliesToScan(assemblies);
         }
     }
 }

@@ -105,6 +105,7 @@
     <Compile Include="Context\Configuration\ICanBindNameValueValue.cs" />
     <Compile Include="Context\Extensions\TypeExtensions.cs" />
     <Compile Include="Context\Factories\ConstructorFactory.cs" />
+    <Compile Include="Context\Configuration\ICanConfigureApplicationContext.cs" />
     <Compile Include="Context\Parsers\ConstructorObjectDefinitionParser.cs" />
     <Compile Include="Context\Parsers\ConventionConfigurationParser.cs" />
     <Compile Include="Context\Parsers\NameValueCollectionParser.cs" />
@@ -154,8 +155,8 @@
     <Compile Include="Context\Support\FluentWebApplicationContext.cs" />
     <Compile Include="Context\Support\FluentWebApplicationContextHandler.cs" />
     <Compile Include="Context\Configuration\Constraints\ConstrainableDuringLoadFactoryObject.cs" />
-    <Compile Include="Context\Objects\Factory\Support\FluentObjectDefinitionLoader.cs" />
-    <Compile Include="Context\Objects\Factory\IFluentObjectDefinitionRegistry.cs" />
+    <Compile Include="Context\Objects\Factory\Support\FluentObjectDefinitionConfigurationRegistry.cs" />
+    <Compile Include="Context\Objects\Factory\IFluentObjectDefinitionConfigurationRegistry.cs" />
     <Compile Include="Context\Parsers\IObjectDefinitionParser.cs" />
     <Compile Include="Context\Objects\Factory\IObjectDefinitionService.cs" />
     <Compile Include="Context\Objects\Factory\Support\ObjectDefinitionService.cs" />

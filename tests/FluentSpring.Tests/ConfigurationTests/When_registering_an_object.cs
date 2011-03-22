@@ -29,7 +29,7 @@ namespace FluentSpring.Tests.ConfigurationTests
         {
             const string identifierA = "myobjectname";
 
-            FluentApplicationContext.Register(() => Inline.Object<ObjectWithProperties>(identifierA));
+            FluentApplicationContext.Register<ObjectWithProperties>(identifierA);
 
             IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
 
@@ -71,20 +71,6 @@ namespace FluentSpring.Tests.ConfigurationTests
         }
 
         [Test]
-        public void Then_the_object_must_be_registered_when_using_the_configurer_delegate()
-        {
-            const string identifier = "myobjectname";
-
-            FluentApplicationContext.Register(() => Inline.Object<ObjectWithProperties>(identifier));
-
-            IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
-
-            bool definitionPresent = applicationContext.ContainsObjectDefinition(identifier);
-
-            Assert.IsTrue(definitionPresent);
-        }
-
-        [Test]
         public void Then_the_object_must_registered_with_the_identifier_passed_in()
         {
             const string identifier = "myobjectname";
@@ -105,8 +91,8 @@ namespace FluentSpring.Tests.ConfigurationTests
             const string identifierA = "myobjectname";
             const string identifierB = "mysecondobjectname";
 
-            FluentApplicationContext.Register(() => FluentApplicationContext.Register<ObjectWithProperties>(identifierA));
-            FluentApplicationContext.Register(() => FluentApplicationContext.Register<ObjectWithProperties>(identifierB));
+            FluentApplicationContext.Register<ObjectWithProperties>(identifierA);
+            FluentApplicationContext.Register<ObjectWithProperties>(identifierB);
 
             IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
 
@@ -122,8 +108,8 @@ namespace FluentSpring.Tests.ConfigurationTests
             const string identifierA = "myobjectname";
             const string identifierB = "mysecondobjectname";
 
-            FluentApplicationContext.Register(() => Inline.Object<ObjectWithProperties>(identifierA));
-            FluentApplicationContext.Register(() => Inline.Object<ObjectWithProperties>(identifierB));
+            FluentApplicationContext.Register<ObjectWithProperties>(identifierA);
+            FluentApplicationContext.Register<ObjectWithProperties>(identifierB);
 
             IApplicationContext applicationContext = _applicationContextContainer.InitialiseContext();
 

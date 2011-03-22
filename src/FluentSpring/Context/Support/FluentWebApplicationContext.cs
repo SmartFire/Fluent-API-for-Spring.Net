@@ -1,5 +1,4 @@
-﻿using FluentSpring.Context.Objects.Factory;
-using Spring.Context;
+﻿using Spring.Context;
 using Spring.Context.Support;
 using Spring.Objects.Factory.Support;
 
@@ -10,8 +9,6 @@ namespace FluentSpring.Context.Support
     /// </summary>
     public class FluentWebApplicationContext : WebApplicationContext
     {
-        private readonly IFluentObjectDefinitionRegistry _objectDefinitionLoader = FluentStaticConfiguration.ObjectDefinitionRegistry;
-
         /// <summary>
         /// Create a new WebApplicationContext, loading the definitions
         /// from the given XML resource and also all fluently configured ones.
@@ -55,7 +52,7 @@ namespace FluentSpring.Context.Support
         /// <param name="objectFactory">The object factory.</param>
         protected override void LoadObjectDefinitions(DefaultListableObjectFactory objectFactory)
         {
-            _objectDefinitionLoader.LoadObjectDefinitions(objectFactory);
+            FluentStaticConfiguration.LoadConfiguration(objectFactory);
             base.LoadObjectDefinitions(objectFactory);
         }
     }

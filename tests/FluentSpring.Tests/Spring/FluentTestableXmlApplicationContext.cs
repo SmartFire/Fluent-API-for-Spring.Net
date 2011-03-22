@@ -7,15 +7,13 @@ namespace FluentSpring.Tests.Spring
 {
     public class FluentTestableXmlApplicationContext : XmlApplicationContext
     {
-        private readonly IFluentObjectDefinitionRegistry _objectDefinitionLoader = FluentStaticConfiguration.ObjectDefinitionRegistry;
-
         public FluentTestableXmlApplicationContext(string[] locations) : base(locations)
         {
         }
 
         protected override void LoadObjectDefinitions(DefaultListableObjectFactory objectFactory)
         {
-            _objectDefinitionLoader.LoadObjectDefinitions(objectFactory);
+            FluentStaticConfiguration.LoadConfiguration(objectFactory);
             base.LoadObjectDefinitions(objectFactory);
         }
     }

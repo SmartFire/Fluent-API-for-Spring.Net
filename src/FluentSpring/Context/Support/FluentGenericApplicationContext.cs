@@ -8,8 +8,6 @@ namespace FluentSpring.Context.Support
 {
     public class FluentGenericApplicationContext : XmlApplicationContext
     {
-        private readonly IFluentObjectDefinitionRegistry _objectDefinitionLoader = FluentStaticConfiguration.ObjectDefinitionRegistry;
-
         /// <summary>
         /// Creates a new instance of the
         /// <see cref="Spring.Context.Support.XmlApplicationContext"/> class,
@@ -144,7 +142,7 @@ namespace FluentSpring.Context.Support
         protected override void LoadObjectDefinitions(DefaultListableObjectFactory objectFactory)
         {
             base.LoadObjectDefinitions(objectFactory);
-            _objectDefinitionLoader.LoadObjectDefinitions(objectFactory);
+            FluentStaticConfiguration.LoadConfiguration(objectFactory);
         }
     }
 }
