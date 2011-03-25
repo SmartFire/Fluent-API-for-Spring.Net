@@ -11,8 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{157ACD56
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{349F3C60-4BE9-4DCB-A3B1-EFEAAEBF6651}"
 	ProjectSection(SolutionItems) = preProject
-		build\fluentspring.nuspec = build\fluentspring.nuspec
 		build\rakefile.rb = build\rakefile.rb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuget", "nuget", "{8C726846-E224-473D-9C0B-469A94C4AA97}"
+	ProjectSection(SolutionItems) = preProject
+		build\nuget\app.config.transform = build\nuget\app.config.transform
+		build\fluentspring.nuspec = build\fluentspring.nuspec
+		build\nuget\web.config.transform = build\nuget\web.config.transform
 	EndProjectSection
 EndProject
 Global
@@ -46,5 +52,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B303FD06-98BB-4C03-BCD5-EA557645F16A} = {584D40F4-5EDB-4189-BEE5-3562BA0B6B2F}
 		{0B73875D-06A3-431A-B673-6233864D31DA} = {157ACD56-AB85-4739-B4CE-0D718CC733E6}
+		{8C726846-E224-473D-9C0B-469A94C4AA97} = {349F3C60-4BE9-4DCB-A3B1-EFEAAEBF6651}
 	EndGlobalSection
 EndGlobal

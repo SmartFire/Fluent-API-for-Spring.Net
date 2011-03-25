@@ -2,7 +2,8 @@ require 'albacore'
 require 'rake'
 require 'fileutils'
 
-task :default => [:clean, :build, :coverage, :release, :package]
+task :default => [:clean, :build, :coverage, :package]
+task :nuget => [:clean, :build, :test, :package]
 
 task :clean do
     if File.directory? Dir.pwd + "/package"
@@ -35,8 +36,9 @@ ncoverconsole :coverage do |ncc|
   ncc.testrunner = nunit
 end
 
-task :release do
-    Dir.mkdir Dir.pwd+"/package"
+exec :package do |cmd|
+    
+	Dir.mkdir Dir.pwd+"/package"
     FileUtils.cp Dir.pwd+"/release/FluentSpring.dll", Dir.pwd+"/package/FluentSpring.dll"
     FileUtils.cp Dir.pwd+"/release/Spring.Core.dll", Dir.pwd+"/package/Spring.Core.dll"
     FileUtils.cp Dir.pwd+"/release/Spring.Data.dll", Dir.pwd+"/package/Spring.Data.dll"
@@ -45,10 +47,9 @@ task :release do
     FileUtils.cp Dir.pwd+"/release/Common.Logging.dll", Dir.pwd+"/package/Common.Logging.dll"
     FileUtils.cp Dir.pwd+"/release/Common.Logging.Log4Net.dll", Dir.pwd+"/package/Common.Logging.Log4Net.dll"
     FileUtils.cp Dir.pwd+"/release/log4net.dll", Dir.pwd+"/package/log4net.dll"
-    #FileUtils.cp_r Dir.pwd+"/../lib/.", Dir.pwd+"/package/"
-end
+	FileUtils.cp Dir.pwd+"/nuget/web.config.transform", Dir.pwd+"/package/web.config.transform"
+	FileUtils.cp Dir.pwd+"/nuget/app.config.transform", Dir.pwd+"/package/app.config.transform"
 
-exec :package do |cmd|
     cmd.command = "nuget"
     cmd.parameters = "pack fluentspring.nuspec"
 end
