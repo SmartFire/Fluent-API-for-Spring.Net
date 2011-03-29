@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configSections>
-  <sectionGroup name="spring">
-    <section name="context" type="FluentSpring.Context.Support.FluentWebApplicationContextHandler, FluentSpring"/>
-  </sectionGroup>
+
+<configuration>
+	<configSections>
+	  <sectionGroup name="spring">
+		<section name="context" type="FluentSpring.Context.Support.FluentWebApplicationContextHandler, FluentSpring"/>
+        <section name="objects" type="Spring.Context.Support.DefaultSectionHandler, Spring.Core"/>
+	  </sectionGroup>
+	</configSections>
 
   <system.web>
     <httpModules>
@@ -17,4 +21,4 @@
     <objects xmlns="http://www.springframework.net">
     </objects>
   </spring>
-</configSections>
+</configuration>
