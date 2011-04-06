@@ -2,17 +2,39 @@ require 'albacore'
 require 'rake'
 require 'fileutils'
 
-task :default => [:clean, :build, :coverage, :package]
-task :nuget => [:clean, :build, :test, :package]
+task :default => [:clean, :build, :coverage]
+task :nuget_all, :fmk, :fmkdir, :needs => [:build, :test, :package, :nupack]
+
+task :nuget do
+    Rake::Task['clean'].invoke
+    Rake::Task['build'].invoke("v3.5")
+    Rake::Task['test'].invoke
+    Rake::Task['package'].invoke("net35")
+    
+    Rake::Task['build'].reenable
+    Rake::Task['test'].reenable
+    Rake::Task['package'].reenable
+    
+    Rake::Task['build'].invoke("v4.0")
+    Rake::Task['test'].invoke
+    Rake::Task['package'].invoke("net40")
+    
+    Rake::Task['nupack'].invoke
+end
 
 task :clean do
     if File.directory? Dir.pwd + "/package"
-        FileUtils.rm_r Dir.pwd+"/package"
+        FileUtils.rm_r Dir.pwd + "/package"
+    end
+    if File.directory? Dir.pwd + "/release"
+        FileUtils.rm_r Dir.pwd + "/release"
     end
 end
 
-msbuild :build do |msb|
-    msb.properties :configuration => :Debug, :OutputPath => Dir.pwd + "/release"
+msbuild :build, [:fmk] do |msb, args|
+    args.with_defaults(:fmk=>"v3.5")
+    
+    msb.properties :configuration => :Release, :OutputPath => Dir.pwd + "/release", :TargetFrameworkVersion => args[:fmk]
     msb.verbosity = "quiet"
     msb.targets :Clean, :Build
     msb.solution = "../SpringContrib.sln"
@@ -36,20 +58,24 @@ ncoverconsole :coverage do |ncc|
   ncc.testrunner = nunit
 end
 
-exec :package do |cmd|
+task :package, [:fmkdir] do |nuget, args|
+    args.with_defaults(:fmkdir=>"net35")
+
+    if !File.directory? Dir.pwd + "/package"
+        Dir.mkdir Dir.pwd+"/package" 
+    end
     
-	Dir.mkdir Dir.pwd+"/package"
-    FileUtils.cp Dir.pwd+"/release/FluentSpring.dll", Dir.pwd+"/package/FluentSpring.dll"
-    FileUtils.cp Dir.pwd+"/release/Spring.Core.dll", Dir.pwd+"/package/Spring.Core.dll"
-    FileUtils.cp Dir.pwd+"/release/Spring.Data.dll", Dir.pwd+"/package/Spring.Data.dll"
-    FileUtils.cp Dir.pwd+"/release/Spring.Aop.dll", Dir.pwd+"/package/Spring.Aop.dll"
-    FileUtils.cp Dir.pwd+"/release/Spring.Web.dll", Dir.pwd+"/package/Spring.Web.dll"
-    FileUtils.cp Dir.pwd+"/release/Common.Logging.dll", Dir.pwd+"/package/Common.Logging.dll"
-    FileUtils.cp Dir.pwd+"/release/Common.Logging.Log4Net.dll", Dir.pwd+"/package/Common.Logging.Log4Net.dll"
-    FileUtils.cp Dir.pwd+"/release/log4net.dll", Dir.pwd+"/package/log4net.dll"
+	Dir.mkdir Dir.pwd+"/package/" + args[:fmkdir]
+    
+    FileUtils.cp Dir.pwd+"/release/FluentSpring.dll", Dir.pwd+"/package/" + args[:fmkdir] + "/FluentSpring.dll"
+    FileUtils.cp Dir.pwd+"/release/Spring.Data.dll", Dir.pwd+"/package/" + args[:fmkdir] + "/Spring.Data.dll"
+    FileUtils.cp Dir.pwd+"/release/Spring.Web.dll", Dir.pwd+"/package/" + args[:fmkdir] + "/Spring.Web.dll"
+
+end
+
+nugetpack :nupack, [:fmkdir] do |nuget, args|
 	FileUtils.cp Dir.pwd+"/nuget/web.config.transform", Dir.pwd+"/package/web.config.transform"
 	FileUtils.cp Dir.pwd+"/nuget/app.config.transform", Dir.pwd+"/package/app.config.transform"
 
-    cmd.command = "nuget"
-    cmd.parameters = "pack fluentspring.nuspec"
+    nuget.nuspec = "fluentspring.nuspec"
 end

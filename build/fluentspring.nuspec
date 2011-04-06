@@ -2,16 +2,20 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>FluentSpring.Net</id>
-    <version>1.2.3</version>
+    <version>1.2.4</version>
     <authors>Yoann Esnaud</authors>
     <description>Fluent Spring configuration for Spring.Net</description>
     <language>en-GB</language>
     <projectUrl>https://github.com/thenapoleon/Fluent-API-for-Spring.Net</projectUrl>
-    <iconUrl>https://github.com/thenapoleon/Fluent-API-for-Spring.Net/blob/master/fluentspring.png</iconUrl>
+    <iconUrl>http://nuget.org/Media/Default/Packages/FluentSpring.Net/1.2.3/fluentspring.png</iconUrl>
     <summary>With this extension you do not need to use xml for spring.net configuration, but instead configure your DI container in code</summary>
+    <dependencies>
+      <dependency id="Spring.Core" version="1.3.1" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="package\*.dll" target="lib" />
+    <file src="package\net35\*.dll" target="lib\net35" />
+    <file src="package\net40\*.dll" target="lib\net40" />
     <file src="package\*.transform" target="content"/>
   </files>
 </package>
