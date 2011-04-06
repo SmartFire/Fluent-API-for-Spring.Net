@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using FluentSpring.Context.Configuration;
 using FluentSpring.Context.Configuration.Binders;
@@ -60,7 +61,6 @@ namespace FluentSpring.Context
             if (configurationParser == null)
             {
                 configurationParser = new ConstructorObjectDefinitionParser<T>(identifierName);
-
             }
 
             var objectBinder = new ConstructorObjectBinder<T>((ConstructorObjectDefinitionParser<T>)configurationParser);
@@ -69,6 +69,27 @@ namespace FluentSpring.Context
             FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
             return objectBinder;
         }
+
+        //public static ICanConfigureCreatedObject<T> RegisterByExpression<T>(Expression<Func<IObjectRegistry, T>> objectCreation)
+        //{
+        //    return RegisterByExpression<T>(objectCreation, typeof (T).FullName);
+        //}
+
+        //public static ICanConfigureCreatedObject<T> RegisterByExpression<T>(Expression<Func<IObjectRegistry, T>> objectCreation, string identifierName)
+        //{
+        //    ICanContainConfiguration configurationParser = FluentStaticConfiguration.GetConfigurationParser(identifierName);
+        //    if (configurationParser == null)
+        //    {
+        //        configurationParser = new LambdaObjectDefinitionExpressionParser<T>(identifierName);
+        //    }
+
+        //    var objectBinder = new ConstructorObjectExpressionBinder<T>((LambdaObjectDefinitionExpressionParser<T>)configurationParser);
+        //    objectBinder.AddConstructorDelegate(objectCreation);
+
+        //    FluentStaticConfiguration.RegisterObjectConfiguration(configurationParser);
+        //    return objectBinder;
+            
+        //}
 
         public static ICanFilterType RegisterConvention()
         {

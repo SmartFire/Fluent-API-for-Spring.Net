@@ -7,6 +7,7 @@ using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
 using Spring.Testing.NUnit;
 
+
 namespace FluentSpring.Tests.Spring
 {
     public class SpringApplicationContextTester : AbstractSpringContextTests

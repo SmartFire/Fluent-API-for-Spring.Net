@@ -1,11 +1,12 @@
-﻿namespace FluentSpring.Tests.TestObjects
+﻿using System;
+
+namespace FluentSpring.Tests.TestObjects
 {
     public class ObjectWithConstructor
     {
         private readonly IObjectWithPropertiesInterface _objectInterface;
         private readonly string _first;
         private readonly int _second;
-        private readonly TestObject _testObject;
         private readonly string _third;
 
         public ObjectWithConstructor(string first, int second, string third)
@@ -28,7 +29,7 @@
 
         public ObjectWithConstructor(TestObject testObject)
         {
-            _testObject = testObject;
+            TestObject = testObject;
         }
 
         public ObjectWithConstructor(IObjectWithPropertiesInterface objectInterface)
@@ -38,8 +39,13 @@
 
         public ObjectWithConstructor(TestObject testObject, string first)
         {
-            _testObject = testObject;
+            TestObject = testObject;
             _first = first;
+        }
+
+        public ObjectWithConstructor()
+        {
+            
         }
 
         public string First
@@ -62,9 +68,6 @@
             get { return _third; }
         }
 
-        public TestObject TestObject
-        {
-            get { return _testObject; }
-        }
+        public TestObject TestObject { get; set; }
     }
 }

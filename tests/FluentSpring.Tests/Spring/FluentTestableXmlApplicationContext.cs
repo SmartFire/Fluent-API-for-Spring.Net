@@ -1,5 +1,4 @@
-﻿using FluentSpring.Context.Objects.Factory;
-using FluentSpring.Context.Support;
+﻿using FluentSpring.Context.Support;
 using Spring.Context.Support;
 using Spring.Objects.Factory.Support;
 
