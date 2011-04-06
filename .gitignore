@@ -19,4 +19,5 @@ deploy
 
 *.suo
 
+TestResult.xml
 _ReSharper*
